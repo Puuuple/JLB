@@ -207,33 +207,166 @@
         <div class="container">
             <div class="section-header-center">
                 <span class="section-tag">Transformations</span>
-                <h2>Avant / Après</h2>
-                <p>Découvrez nos rénovations de cuisines et salles de bain à Lyon, Rillieux-la-Pape, Villeurbanne, Meyzieu, Décines, Vaulx-en-Velin et toute la région lyonnaise</p>
+                <h2>Nos réalisations Avant / Après</h2>
+                <p>Découvrez nos rénovations de cuisines et salles de bain à Lyon et sa région</p>
             </div>
-            <div class="ba-slider-container">
-                <div class="ba-slider">
-                    <div class="ba-image-container">
-                        <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=1200&h=800&fit=crop" alt="Avant" class="ba-before">
-                        <img src="https://images.unsplash.com/photo-1556911220-bff31c812dba?w=1200&h=800&fit=crop" alt="Après" class="ba-after">
-                        <div class="ba-handle" id="baHandle">
-                            <div class="ba-handle-line"></div>
-                            <div class="ba-handle-button">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                    <path d="M11 6L5 12L11 18" stroke="currentColor" stroke-width="2"/>
-                                    <path d="M13 6L19 12L13 18" stroke="currentColor" stroke-width="2"/>
-                                </svg>
+
+            <!-- Filtres par catégorie -->
+            <div class="ba-filters">
+                <button class="filter-btn active" data-category="all">Tout</button>
+                <button class="filter-btn" data-category="cuisine">Cuisine</button>
+                <button class="filter-btn" data-category="sdb">Salle de bain</button>
+                <button class="filter-btn" data-category="autre">Autres</button>
+            </div>
+
+            <!-- Galerie de slides -->
+            <div class="ba-gallery">
+                <!-- Navigation -->
+                <button class="ba-nav ba-nav-prev" id="baPrevSlide">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </button>
+                <button class="ba-nav ba-nav-next" id="baNextSlide">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </button>
+
+                <div class="ba-slides-container">
+                    <!-- Projet 1 - Cuisine Lyon 6ème -->
+                    <div class="ba-slide active" data-category="cuisine">
+                        <div class="ba-image-container">
+                            <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=1200&h=800&fit=crop" alt="Avant" class="ba-before">
+                            <img src="https://images.unsplash.com/photo-1556911220-bff31c812dba?w=1200&h=800&fit=crop" alt="Après" class="ba-after">
+                            <div class="ba-handle">
+                                <div class="ba-handle-line"></div>
+                                <div class="ba-handle-button">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                        <path d="M11 6L5 12L11 18" stroke="currentColor" stroke-width="2"/>
+                                        <path d="M13 6L19 12L13 18" stroke="currentColor" stroke-width="2"/>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="ba-labels">
+                                <span class="ba-label ba-label-before">Avant</span>
+                                <span class="ba-label ba-label-after">Après</span>
                             </div>
                         </div>
+                        <div class="ba-info">
+                            <span class="ba-category">Cuisine</span>
+                            <h3>Rénovation cuisine Lyon 6ème</h3>
+                            <p>Transformation complète avec ouverture sur salon, îlot central sur-mesure et électroménager intégré haut de gamme</p>
+                        </div>
                     </div>
-                    <div class="ba-labels">
-                        <span class="ba-label ba-label-before">Avant</span>
-                        <span class="ba-label ba-label-after">Après</span>
+
+                    <!-- Projet 2 - Cuisine Villeurbanne -->
+                    <div class="ba-slide" data-category="cuisine">
+                        <div class="ba-image-container">
+                            <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=1200&h=800&fit=crop" alt="Avant" class="ba-before">
+                            <img src="https://images.unsplash.com/photo-1556912167-f556f1f39faa?w=1200&h=800&fit=crop" alt="Après" class="ba-after">
+                            <div class="ba-handle">
+                                <div class="ba-handle-line"></div>
+                                <div class="ba-handle-button">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                        <path d="M11 6L5 12L11 18" stroke="currentColor" stroke-width="2"/>
+                                        <path d="M13 6L19 12L13 18" stroke="currentColor" stroke-width="2"/>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="ba-labels">
+                                <span class="ba-label ba-label-before">Avant</span>
+                                <span class="ba-label ba-label-after">Après</span>
+                            </div>
+                        </div>
+                        <div class="ba-info">
+                            <span class="ba-category">Cuisine</span>
+                            <h3>Cuisine moderne Villeurbanne</h3>
+                            <p>Rénovation avec façades noir mat, plan de travail en quartz blanc et éclairage LED intégré</p>
+                        </div>
+                    </div>
+
+                    <!-- Projet 3 - Salle de bain Rillieux -->
+                    <div class="ba-slide" data-category="sdb">
+                        <div class="ba-image-container">
+                            <img src="https://images.unsplash.com/photo-1584622781867-1bbf05f611c1?w=1200&h=800&fit=crop" alt="Avant" class="ba-before">
+                            <img src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=1200&h=800&fit=crop" alt="Après" class="ba-after">
+                            <div class="ba-handle">
+                                <div class="ba-handle-line"></div>
+                                <div class="ba-handle-button">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                        <path d="M11 6L5 12L11 18" stroke="currentColor" stroke-width="2"/>
+                                        <path d="M13 6L19 12L13 18" stroke="currentColor" stroke-width="2"/>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="ba-labels">
+                                <span class="ba-label ba-label-before">Avant</span>
+                                <span class="ba-label ba-label-after">Après</span>
+                            </div>
+                        </div>
+                        <div class="ba-info">
+                            <span class="ba-category">Salle de bain</span>
+                            <h3>Salle de bain contemporaine Rillieux-la-Pape</h3>
+                            <p>Rénovation complète avec douche italienne, meuble vasque suspendu et carrelage grand format</p>
+                        </div>
+                    </div>
+
+                    <!-- Projet 4 - Salle de bain Caluire -->
+                    <div class="ba-slide" data-category="sdb">
+                        <div class="ba-image-container">
+                            <img src="https://images.unsplash.com/photo-1620626011761-996317b8d101?w=1200&h=800&fit=crop" alt="Avant" class="ba-before">
+                            <img src="https://images.unsplash.com/photo-1507652313519-d4e9174996dd?w=1200&h=800&fit=crop" alt="Après" class="ba-after">
+                            <div class="ba-handle">
+                                <div class="ba-handle-line"></div>
+                                <div class="ba-handle-button">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                        <path d="M11 6L5 12L11 18" stroke="currentColor" stroke-width="2"/>
+                                        <path d="M13 6L19 12L13 18" stroke="currentColor" stroke-width="2"/>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="ba-labels">
+                                <span class="ba-label ba-label-before">Avant</span>
+                                <span class="ba-label ba-label-after">Après</span>
+                            </div>
+                        </div>
+                        <div class="ba-info">
+                            <span class="ba-category">Salle de bain</span>
+                            <h3>Salle de bain luxe Caluire-et-Cuire</h3>
+                            <p>Rénovation haut de gamme avec baignoire îlot, double vasque et robinetterie dorée</p>
+                        </div>
+                    </div>
+
+                    <!-- Projet 5 - Dressing Meyzieu -->
+                    <div class="ba-slide" data-category="autre">
+                        <div class="ba-image-container">
+                            <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1200&h=800&fit=crop" alt="Avant" class="ba-before">
+                            <img src="https://images.unsplash.com/photo-1595428774223-ef52624120d2?w=1200&h=800&fit=crop" alt="Après" class="ba-after">
+                            <div class="ba-handle">
+                                <div class="ba-handle-line"></div>
+                                <div class="ba-handle-button">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                        <path d="M11 6L5 12L11 18" stroke="currentColor" stroke-width="2"/>
+                                        <path d="M13 6L19 12L13 18" stroke="currentColor" stroke-width="2"/>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="ba-labels">
+                                <span class="ba-label ba-label-before">Avant</span>
+                                <span class="ba-label ba-label-after">Après</span>
+                            </div>
+                        </div>
+                        <div class="ba-info">
+                            <span class="ba-category">Dressing</span>
+                            <h3>Dressing sur-mesure Meyzieu</h3>
+                            <p>Création d'un dressing optimisé avec penderies, tiroirs et éclairage LED intégré</p>
+                        </div>
                     </div>
                 </div>
-                <div class="ba-info">
-                    <h3>Rénovation cuisine Lyon 6ème</h3>
-                    <p>Transformation complète : ouverture sur salon, îlot central sur-mesure et électroménager intégré haut de gamme</p>
-                </div>
+
+                <!-- Indicateurs de slides -->
+                <div class="ba-indicators" id="baIndicators"></div>
             </div>
         </div>
     </section>

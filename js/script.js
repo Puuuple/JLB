@@ -134,11 +134,120 @@ function initializeCallbackModal() {
     });
 }
 
-// Before/After Slider
+// Before/After Gallery avec filtres et navigation
+let currentSlideIndex = 0;
+let currentFilter = 'all';
+let filteredSlides = [];
+
 function initializeBeforeAfterSlider() {
-    const container = document.querySelector('.ba-image-container');
-    const handle = document.getElementById('baHandle');
-    const afterImage = document.querySelector('.ba-after');
+    const slides = document.querySelectorAll('.ba-slide');
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const prevBtn = document.getElementById('baPrevSlide');
+    const nextBtn = document.getElementById('baNextSlide');
+    const indicatorsContainer = document.getElementById('baIndicators');
+
+    if (slides.length === 0) return;
+
+    // Initialiser toutes les slides
+    filteredSlides = Array.from(slides);
+
+    // Initialiser les sliders avant/après pour chaque slide
+    slides.forEach(slide => {
+        initializeSingleSlider(slide);
+    });
+
+    // Filtres par catégorie
+    filterBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            filterBtns.forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+            currentFilter = this.dataset.category;
+            filterSlides();
+            currentSlideIndex = 0;
+            showSlide(currentSlideIndex);
+        });
+    });
+
+    // Navigation
+    if (prevBtn) {
+        prevBtn.addEventListener('click', () => {
+            currentSlideIndex = (currentSlideIndex - 1 + filteredSlides.length) % filteredSlides.length;
+            showSlide(currentSlideIndex);
+        });
+    }
+
+    if (nextBtn) {
+        nextBtn.addEventListener('click', () => {
+            currentSlideIndex = (currentSlideIndex + 1) % filteredSlides.length;
+            showSlide(currentSlideIndex);
+        });
+    }
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowLeft') {
+            currentSlideIndex = (currentSlideIndex - 1 + filteredSlides.length) % filteredSlides.length;
+            showSlide(currentSlideIndex);
+        } else if (e.key === 'ArrowRight') {
+            currentSlideIndex = (currentSlideIndex + 1) % filteredSlides.length;
+            showSlide(currentSlideIndex);
+        }
+    });
+
+    // Initialiser les indicateurs
+    updateIndicators();
+    showSlide(0);
+}
+
+function filterSlides() {
+    const allSlides = document.querySelectorAll('.ba-slide');
+    if (currentFilter === 'all') {
+        filteredSlides = Array.from(allSlides);
+    } else {
+        filteredSlides = Array.from(allSlides).filter(slide =>
+            slide.dataset.category === currentFilter
+        );
+    }
+    updateIndicators();
+}
+
+function showSlide(index) {
+    const allSlides = document.querySelectorAll('.ba-slide');
+    allSlides.forEach(slide => {
+        slide.classList.remove('active');
+    });
+
+    if (filteredSlides[index]) {
+        filteredSlides[index].classList.add('active');
+    }
+
+    updateIndicators();
+}
+
+function updateIndicators() {
+    const indicatorsContainer = document.getElementById('baIndicators');
+    if (!indicatorsContainer) return;
+
+    indicatorsContainer.innerHTML = '';
+
+    filteredSlides.forEach((slide, index) => {
+        const indicator = document.createElement('div');
+        indicator.classList.add('ba-indicator');
+        if (index === currentSlideIndex) {
+            indicator.classList.add('active');
+        }
+        indicator.addEventListener('click', () => {
+            currentSlideIndex = index;
+            showSlide(currentSlideIndex);
+        });
+        indicatorsContainer.appendChild(indicator);
+    });
+}
+
+function initializeSingleSlider(slideElement) {
+    const container = slideElement.querySelector('.ba-image-container');
+    const handle = slideElement.querySelector('.ba-handle');
+    const afterImage = slideElement.querySelector('.ba-after');
 
     if (!container || !handle || !afterImage) return;
 
