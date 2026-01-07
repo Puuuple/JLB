@@ -21,6 +21,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeBookingForm();
     initializeBeforeAfterSlider();
     initializeScrollAnimations();
+    initializeMap();
 });
 
 // Smooth Scroll
@@ -459,4 +460,77 @@ function submitBooking() {
     confirmationEl.style.display = 'block';
 
     confirmationEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+// Initialize Interactive Map
+function initializeMap() {
+    const mapElement = document.getElementById('map');
+    if (!mapElement || typeof L === 'undefined') return;
+
+    // Coordinates for Rillieux-la-Pape (showroom location)
+    const showroomLat = 45.8167;
+    const showroomLng = 4.8978;
+
+    // Initialize map
+    const map = L.map('map', {
+        center: [showroomLat, showroomLng],
+        zoom: 11,
+        zoomControl: true,
+        scrollWheelZoom: false
+    });
+
+    // Add OpenStreetMap tiles
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+        maxZoom: 19
+    }).addTo(map);
+
+    // Custom icon for showroom
+    const showroomIcon = L.divIcon({
+        className: 'custom-marker',
+        html: '<div style="background: #0a0a0a; color: white; padding: 8px 12px; border-radius: 8px; font-weight: 600; font-size: 14px; box-shadow: 0 2px 10px rgba(0,0,0,0.3); white-space: nowrap;">📍 Notre Showroom</div>',
+        iconSize: [120, 40],
+        iconAnchor: [60, 40]
+    });
+
+    // Add marker for showroom
+    L.marker([showroomLat, showroomLng], { icon: showroomIcon })
+        .addTo(map)
+        .bindPopup('<div style="text-align: center;"><strong>JLB Cuisine & Agencement</strong><br>Rillieux-la-Pape<br>Lun - Ven : 8h - 19h</div>');
+
+    // Define coverage area (circle radius ~15km)
+    const coverageCircle = L.circle([showroomLat, showroomLng], {
+        color: '#c9a961',
+        fillColor: '#c9a961',
+        fillOpacity: 0.15,
+        radius: 15000, // 15km radius
+        weight: 2,
+        dashArray: '5, 10'
+    }).addTo(map);
+
+    // Add markers for main cities
+    const cities = [
+        { name: 'Lyon', lat: 45.7640, lng: 4.8357 },
+        { name: 'Villeurbanne', lat: 45.7667, lng: 4.8800 },
+        { name: 'Caluire-et-Cuire', lat: 45.7950, lng: 4.8500 },
+        { name: 'Vaulx-en-Velin', lat: 45.7867, lng: 4.9200 },
+        { name: 'Bron', lat: 45.7333, lng: 4.9167 },
+        { name: 'Décines-Charpieu', lat: 45.7700, lng: 4.9600 },
+        { name: 'Meyzieu', lat: 45.7667, lng: 5.0033 },
+        { name: 'Saint-Priest', lat: 45.6972, lng: 4.9439 },
+        { name: 'Vénissieux', lat: 45.6972, lng: 4.8872 }
+    ];
+
+    const cityIcon = L.divIcon({
+        className: 'city-marker',
+        html: '<div style="background: white; width: 8px; height: 8px; border-radius: 50%; border: 2px solid #0a0a0a; box-shadow: 0 2px 4px rgba(0,0,0,0.2);"></div>',
+        iconSize: [12, 12],
+        iconAnchor: [6, 6]
+    });
+
+    cities.forEach(city => {
+        L.marker([city.lat, city.lng], { icon: cityIcon })
+            .addTo(map)
+            .bindPopup('<strong>' + city.name + '</strong><br>Zone d\'intervention');
+    });
 }
