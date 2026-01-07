@@ -3,76 +3,200 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="JLB Cuisine Bain et Agencement - 20 ans d'expérience dans l'est lyonnais. Cuisines sur-mesure, salles de bain et agencement clé en main. Devis gratuit et visualisation VR.">
-    <meta name="keywords" content="cuisine sur mesure Lyon, salle de bain Lyon, agencement Lyon, cuisiniste Rillieux-la-Pape, cuisiniste est lyonnais">
-    <title>JLB Cuisine Bain et Agencement - Est Lyonnais</title>
+    <meta name="description" content="JLB Cuisine Bain et Agencement - 20 ans d'expérience. Cuisines sur-mesure, salles de bain et agencement clé en main. Devis gratuit et visualisation VR.">
+    <meta name="keywords" content="cuisine sur mesure Lyon, salle de bain Lyon, agencement Lyon, cuisiniste Rillieux-la-Pape">
+    <title>JLB Cuisine Bain et Agencement - Lyon & Région</title>
     <link rel="stylesheet" href="css/styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
     <!-- Header -->
     <header class="header" id="header">
         <div class="container">
             <div class="header-content">
-                <div class="logo">JLB</div>
+                <div class="logo-container">
+                    <div class="logo">JLB</div>
+                    <div class="logo-sub">Cuisine & Bain</div>
+                </div>
                 <nav class="nav">
                     <a href="#accueil">Accueil</a>
-                    <a href="#realisations">Réalisations</a>
+                    <a href="#avant-apres">Avant/Après</a>
                     <a href="#services">Services</a>
-                    <a href="#rdv" class="btn-nav">Prendre RDV</a>
+                    <a href="tel:0637878141" class="nav-phone">📞 06 37 87 81 41</a>
                 </nav>
-                <a href="tel:0637878141" class="btn-phone">06 37 87 81 41</a>
+                <a href="#rdv" class="btn-header">Prendre RDV</a>
             </div>
         </div>
     </header>
 
     <!-- Hero Section -->
     <section class="hero" id="accueil">
+        <div class="hero-bg"></div>
         <div class="hero-image">
             <img src="https://images.unsplash.com/photo-1556912173-46c336c7fd55?w=1600&h=900&fit=crop" alt="Cuisine moderne">
         </div>
         <div class="container">
             <div class="hero-content">
-                <span class="hero-tag">20 ans d'expérience • Est Lyonnais</span>
-                <h1>Votre cuisine de rêve, <br>conçue sur-mesure</h1>
-                <p>Cuisines, salles de bain et agencement clé en main.<br>Visualisez votre projet en VR avant réalisation.</p>
+                <span class="hero-tag">20 ans d'excellence</span>
+                <h1>Votre cuisine de rêve,<br><span class="highlight">sur-mesure</span></h1>
+                <p class="hero-description">Conception 3D • Visualisation VR • Installation clé en main</p>
                 <div class="hero-cta">
-                    <a href="#rdv" class="btn btn-primary btn-large">Prendre rendez-vous gratuit</a>
-                    <a href="tel:0637878141" class="btn btn-outline btn-large">06 37 87 81 41</a>
+                    <a href="#rdv" class="btn btn-primary btn-large">
+                        <span>Réserver ma consultation gratuite</span>
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                            <path d="M7.5 15L12.5 10L7.5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </a>
+                    <a href="tel:0637878141" class="btn btn-outline-white btn-large">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                            <path d="M2 3C2 2.44772 2.44772 2 3 2H6.15287C6.64171 2 7.0589 2.35341 7.13927 2.8356L8.16639 8.94813C8.23479 9.36093 8.03139 9.77252 7.66395 9.96L5.5 11C6.79534 13.8644 9.13561 16.2047 12 17.5L13.04 15.3361C13.2275 14.9686 13.6391 14.7652 14.0519 14.8336L20.1644 15.8607C20.6466 15.9411 21 16.3583 21 16.8471V20C21 20.5523 20.5523 21 20 21H17C8.71573 21 2 14.2843 2 6V3Z" stroke="currentColor" stroke-width="2"/>
+                        </svg>
+                        06 37 87 81 41
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <span>Découvrir</span>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path d="M12 5V19M12 19L19 12M12 19L5 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+        </div>
+    </section>
+
+    <!-- Booking Section (Moved up) -->
+    <section class="booking-highlight" id="rdv">
+        <div class="container-small">
+            <div class="booking-intro">
+                <h2>Réservez votre consultation gratuite</h2>
+                <p>Un expert JLB vous conseille sur votre projet</p>
+            </div>
+            <div class="booking-container">
+                <form id="bookingForm" class="booking-form">
+                    <!-- Step 1: Type -->
+                    <div class="form-step active" data-step="1">
+                        <h3>Où souhaitez-vous nous rencontrer ?</h3>
+                        <div class="rdv-options">
+                            <label class="rdv-option">
+                                <input type="radio" name="rdvType" value="showroom" required>
+                                <div class="option-content">
+                                    <span class="option-icon">🏢</span>
+                                    <span class="option-text">Au showroom</span>
+                                    <span class="option-desc">Rillieux-la-Pape</span>
+                                </div>
+                            </label>
+                            <label class="rdv-option">
+                                <input type="radio" name="rdvType" value="domicile" required>
+                                <div class="option-content">
+                                    <span class="option-icon">🏠</span>
+                                    <span class="option-text">À domicile</span>
+                                    <span class="option-desc">Gratuit</span>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Step 2: Ville -->
+                    <div class="form-step" data-step="2">
+                        <h3>Votre ville</h3>
+                        <select name="ville" id="ville" class="form-input">
+                            <option value="">Sélectionnez votre ville</option>
+                            <option value="Lyon">Lyon</option>
+                            <option value="Villeurbanne">Villeurbanne</option>
+                            <option value="Rillieux-la-Pape">Rillieux-la-Pape</option>
+                            <option value="Caluire-et-Cuire">Caluire-et-Cuire</option>
+                            <option value="Vaulx-en-Velin">Vaulx-en-Velin</option>
+                            <option value="Bron">Bron</option>
+                            <option value="Décines-Charpieu">Décines-Charpieu</option>
+                            <option value="Meyzieu">Meyzieu</option>
+                            <option value="Saint-Priest">Saint-Priest</option>
+                            <option value="Vénissieux">Vénissieux</option>
+                            <option value="Autre">Autre</option>
+                        </select>
+                    </div>
+
+                    <!-- Step 3: Date -->
+                    <div class="form-step" data-step="3">
+                        <div class="calendar-header">
+                            <button type="button" class="calendar-nav" id="prevMonth">←</button>
+                            <h3 id="currentMonth"></h3>
+                            <button type="button" class="calendar-nav" id="nextMonth">→</button>
+                        </div>
+                        <div id="calendar" class="calendar"></div>
+                    </div>
+
+                    <!-- Step 4: Heure -->
+                    <div class="form-step" data-step="4">
+                        <h3>Choisissez un horaire</h3>
+                        <div id="timeSlots" class="time-slots"></div>
+                    </div>
+
+                    <!-- Step 5: Contact -->
+                    <div class="form-step" data-step="5">
+                        <h3>Vos coordonnées</h3>
+                        <input type="text" id="nom" placeholder="Nom et prénom *" class="form-input" required>
+                        <input type="tel" id="telephone" placeholder="Téléphone *" class="form-input" required>
+                        <input type="email" id="email" placeholder="Email *" class="form-input" required>
+                        <input type="text" id="adresse" placeholder="Adresse complète" class="form-input" id="adresseInput">
+                        <textarea id="projet" placeholder="Décrivez brièvement votre projet..." class="form-input" rows="3"></textarea>
+                    </div>
+
+                    <!-- Navigation -->
+                    <div class="form-nav">
+                        <button type="button" class="btn btn-ghost" id="prevBtn">← Retour</button>
+                        <button type="button" class="btn btn-primary" id="nextBtn">Continuer →</button>
+                        <button type="submit" class="btn btn-primary" id="submitBtn" style="display:none;">Confirmer</button>
+                    </div>
+
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                </form>
+
+                <!-- Confirmation -->
+                <div id="confirmationMessage" class="confirmation" style="display:none;">
+                    <div class="confirmation-icon">✓</div>
+                    <h3>Rendez-vous confirmé !</h3>
+                    <p id="confirmationDetails"></p>
+                    <button class="btn btn-primary" onclick="location.reload()">Nouveau RDV</button>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Réalisations Section -->
-    <section class="realisations" id="realisations">
+    <!-- Before/After Section -->
+    <section class="before-after" id="avant-apres">
         <div class="container">
-            <div class="section-header-simple">
-                <h2>Nos dernières réalisations</h2>
+            <div class="section-header-center">
+                <span class="section-tag">Transformations</span>
+                <h2>Nos rénovations avant/après</h2>
+                <p>Découvrez la transformation complète de nos projets</p>
             </div>
-            <div class="realisations-grid">
-                <div class="realisation-card">
-                    <img src="https://images.unsplash.com/photo-1556911220-bff31c812dba?w=800&h=600&fit=crop" alt="Cuisine moderne">
-                    <div class="realisation-info">
-                        <h3>Cuisine contemporaine</h3>
-                        <p>Lyon 6ème</p>
+            <div class="ba-slider-container">
+                <div class="ba-slider">
+                    <div class="ba-image-container">
+                        <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=1200&h=800&fit=crop" alt="Avant" class="ba-before">
+                        <img src="https://images.unsplash.com/photo-1556911220-bff31c812dba?w=1200&h=800&fit=crop" alt="Après" class="ba-after">
+                        <div class="ba-handle" id="baHandle">
+                            <div class="ba-handle-line"></div>
+                            <div class="ba-handle-button">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                    <path d="M15 6L9 12L15 18" stroke="currentColor" stroke-width="2"/>
+                                    <path d="M9 6L15 12L9 18" stroke="currentColor" stroke-width="2"/>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ba-labels">
+                        <span class="ba-label ba-label-before">Avant</span>
+                        <span class="ba-label ba-label-after">Après</span>
                     </div>
                 </div>
-                <div class="realisation-card">
-                    <img src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=800&h=600&fit=crop" alt="Salle de bain">
-                    <div class="realisation-info">
-                        <h3>Salle de bain spa</h3>
-                        <p>Villeurbanne</p>
-                    </div>
-                </div>
-                <div class="realisation-card">
-                    <img src="https://images.unsplash.com/photo-1565538810643-b5bdb714032a?w=800&h=600&fit=crop" alt="Cuisine épurée">
-                    <div class="realisation-info">
-                        <h3>Cuisine minimaliste</h3>
-                        <p>Caluire-et-Cuire</p>
-                    </div>
+                <div class="ba-info">
+                    <h3>Cuisine familiale - Lyon 6ème</h3>
+                    <p>Rénovation complète avec ouverture sur salon, îlot central et électroménager intégré</p>
                 </div>
             </div>
         </div>
@@ -169,110 +293,12 @@
             <div class="zone-content">
                 <div class="zone-info">
                     <span class="section-tag">Zone d'intervention</span>
-                    <h2>Tout l'est lyonnais</h2>
-                    <p>Lyon • Villeurbanne • Rillieux-la-Pape • Caluire • Vaulx-en-Velin • Bron • Décines • Meyzieu • Saint-Priest • Vénissieux</p>
+                    <h2>Lyon et sa région</h2>
+                    <p>Lyon • Villeurbanne • Rillieux-la-Pape • Caluire • Vaulx-en-Velin • Bron • Décines • Meyzieu • Saint-Priest • Vénissieux et toute la région lyonnaise</p>
                     <div class="showroom-info">
                         <h3>📍 Notre showroom</h3>
-                        <p>Rillieux-la-Pape<br>Lun-Ven 9h-18h • Sam 9h-17h</p>
+                        <p><strong>Rillieux-la-Pape</strong><br>Lun-Ven 8h-19h</p>
                     </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Booking Section -->
-    <section class="booking" id="rdv">
-        <div class="container-small">
-            <div class="section-header-center">
-                <h2>Réservez votre rendez-vous</h2>
-                <p>Gratuit et sans engagement</p>
-            </div>
-            <div class="booking-container">
-                <form id="bookingForm" class="booking-form">
-                    <!-- Step 1: Type -->
-                    <div class="form-step active" data-step="1">
-                        <h3>Où souhaitez-vous nous rencontrer ?</h3>
-                        <div class="rdv-options">
-                            <label class="rdv-option">
-                                <input type="radio" name="rdvType" value="showroom" required>
-                                <div class="option-content">
-                                    <span class="option-icon">🏢</span>
-                                    <span class="option-text">Au showroom</span>
-                                </div>
-                            </label>
-                            <label class="rdv-option">
-                                <input type="radio" name="rdvType" value="domicile" required>
-                                <div class="option-content">
-                                    <span class="option-icon">🏠</span>
-                                    <span class="option-text">À domicile</span>
-                                </div>
-                            </label>
-                        </div>
-                    </div>
-
-                    <!-- Step 2: Ville -->
-                    <div class="form-step" data-step="2">
-                        <h3>Votre ville</h3>
-                        <select name="ville" id="ville" class="form-input">
-                            <option value="">Sélectionnez</option>
-                            <option value="Lyon">Lyon</option>
-                            <option value="Villeurbanne">Villeurbanne</option>
-                            <option value="Rillieux-la-Pape">Rillieux-la-Pape</option>
-                            <option value="Caluire-et-Cuire">Caluire-et-Cuire</option>
-                            <option value="Vaulx-en-Velin">Vaulx-en-Velin</option>
-                            <option value="Bron">Bron</option>
-                            <option value="Décines-Charpieu">Décines-Charpieu</option>
-                            <option value="Meyzieu">Meyzieu</option>
-                            <option value="Saint-Priest">Saint-Priest</option>
-                            <option value="Vénissieux">Vénissieux</option>
-                            <option value="Autre">Autre (Est lyonnais)</option>
-                        </select>
-                    </div>
-
-                    <!-- Step 3: Date -->
-                    <div class="form-step" data-step="3">
-                        <div class="calendar-header">
-                            <button type="button" class="calendar-nav" id="prevMonth">←</button>
-                            <h3 id="currentMonth"></h3>
-                            <button type="button" class="calendar-nav" id="nextMonth">→</button>
-                        </div>
-                        <div id="calendar" class="calendar"></div>
-                    </div>
-
-                    <!-- Step 4: Heure -->
-                    <div class="form-step" data-step="4">
-                        <h3>Choisissez un horaire</h3>
-                        <div id="timeSlots" class="time-slots"></div>
-                    </div>
-
-                    <!-- Step 5: Contact -->
-                    <div class="form-step" data-step="5">
-                        <h3>Vos coordonnées</h3>
-                        <input type="text" id="nom" placeholder="Nom et prénom *" class="form-input" required>
-                        <input type="tel" id="telephone" placeholder="Téléphone *" class="form-input" required>
-                        <input type="email" id="email" placeholder="Email *" class="form-input" required>
-                        <input type="text" id="adresse" placeholder="Adresse complète" class="form-input" id="adresseInput">
-                        <textarea id="projet" placeholder="Décrivez brièvement votre projet..." class="form-input" rows="3"></textarea>
-                    </div>
-
-                    <!-- Navigation -->
-                    <div class="form-nav">
-                        <button type="button" class="btn btn-ghost" id="prevBtn">← Retour</button>
-                        <button type="button" class="btn btn-primary" id="nextBtn">Continuer</button>
-                        <button type="submit" class="btn btn-primary" id="submitBtn" style="display:none;">Confirmer</button>
-                    </div>
-
-                    <div class="progress-bar">
-                        <div class="progress-fill" id="progressFill"></div>
-                    </div>
-                </form>
-
-                <!-- Confirmation -->
-                <div id="confirmationMessage" class="confirmation" style="display:none;">
-                    <div class="confirmation-icon">✓</div>
-                    <h3>Rendez-vous confirmé !</h3>
-                    <p id="confirmationDetails"></p>
-                    <button class="btn btn-primary" onclick="location.reload()">Nouveau RDV</button>
                 </div>
             </div>
         </div>
@@ -285,7 +311,7 @@
                 <div class="footer-brand">
                     <div class="logo-large">JLB</div>
                     <p>Cuisine Bain & Agencement</p>
-                    <p class="footer-tagline">20 ans d'excellence dans l'est lyonnais</p>
+                    <p class="footer-tagline">20 ans d'excellence dans la région lyonnaise</p>
                 </div>
                 <div class="footer-contact">
                     <h4>Contact</h4>

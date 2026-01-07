@@ -1,4 +1,4 @@
-// ==================== GLOBAL VARIABLES ====================
+// Global Variables
 let currentStep = 1;
 const totalSteps = 5;
 let currentCalendarMonth = new Date();
@@ -14,13 +14,15 @@ let bookingData = {
     projet: ''
 };
 
-// ==================== INITIALIZATION ====================
+// Initialization
 document.addEventListener('DOMContentLoaded', function() {
     initializeSmoothScroll();
     initializeBookingForm();
+    initializeBeforeAfterSlider();
+    initializeScrollAnimations();
 });
 
-// ==================== SMOOTH SCROLL ====================
+// Smooth Scroll
 function initializeSmoothScroll() {
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
@@ -36,14 +38,73 @@ function initializeSmoothScroll() {
     });
 }
 
-// ==================== BOOKING FORM ====================
+// Before/After Slider
+function initializeBeforeAfterSlider() {
+    const container = document.querySelector('.ba-image-container');
+    const handle = document.getElementById('baHandle');
+    const afterImage = document.querySelector('.ba-after');
+
+    if (!container || !handle || !afterImage) return;
+
+    let isDragging = false;
+
+    function updateSlider(x) {
+        const rect = container.getBoundingClientRect();
+        let position = ((x - rect.left) / rect.width) * 100;
+        position = Math.max(0, Math.min(100, position));
+
+        handle.style.left = position + '%';
+        afterImage.style.clipPath = 'polygon(' + position + '% 0, 100% 0, 100% 100%, ' + position + '% 100%)';
+    }
+
+    handle.addEventListener('mousedown', () => { isDragging = true; });
+    document.addEventListener('mouseup', () => { isDragging = false; });
+    document.addEventListener('mousemove', (e) => {
+        if (isDragging) {
+            updateSlider(e.clientX);
+        }
+    });
+
+    container.addEventListener('click', (e) => {
+        updateSlider(e.clientX);
+    });
+
+    // Touch support
+    handle.addEventListener('touchstart', () => { isDragging = true; });
+    document.addEventListener('touchend', () => { isDragging = false; });
+    document.addEventListener('touchmove', (e) => {
+        if (isDragging && e.touches[0]) {
+            updateSlider(e.touches[0].clientX);
+        }
+    });
+}
+
+// Scroll Animations
+function initializeScrollAnimations() {
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+            }
+        });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.service-item, .timeline-item, .realisation-card').forEach(el => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(30px)';
+        el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        observer.observe(el);
+    });
+}
+
+// Booking Form
 function initializeBookingForm() {
     const form = document.getElementById('bookingForm');
     const nextBtn = document.getElementById('nextBtn');
     const prevBtn = document.getElementById('prevBtn');
     const submitBtn = document.getElementById('submitBtn');
 
-    // RDV Type selection
     document.querySelectorAll('input[name="rdvType"]').forEach(radio => {
         radio.addEventListener('change', function() {
             bookingData.rdvType = this.value;
@@ -51,7 +112,6 @@ function initializeBookingForm() {
         });
     });
 
-    // Ville selection
     const villeSelect = document.getElementById('ville');
     if (villeSelect) {
         villeSelect.addEventListener('change', function() {
@@ -59,30 +119,24 @@ function initializeBookingForm() {
         });
     }
 
-    // Navigation buttons
     nextBtn.addEventListener('click', nextStep);
     prevBtn.addEventListener('click', prevStep);
 
-    // Form submission
     form.addEventListener('submit', function(e) {
         e.preventDefault();
         submitBooking();
     });
 
-    // Show first step
     showStep(currentStep);
 }
 
 function nextStep() {
-    // Validate current step
     if (!validateStep(currentStep)) {
         return;
     }
 
-    // Step 1: RDV type selected
     if (currentStep === 1) {
         if (bookingData.rdvType === 'showroom') {
-            // Skip ville for showroom
             currentStep = 3;
             showStep(currentStep);
             generateCalendar();
@@ -94,7 +148,6 @@ function nextStep() {
         }
     }
 
-    // Step 2: Ville selected
     if (currentStep === 2) {
         if (!bookingData.ville) {
             alert('Veuillez sélectionner votre ville');
@@ -106,7 +159,6 @@ function nextStep() {
         return;
     }
 
-    // Step 3: Date selected
     if (currentStep === 3) {
         if (!bookingData.date) {
             alert('Veuillez sélectionner une date');
@@ -118,7 +170,6 @@ function nextStep() {
         return;
     }
 
-    // Step 4: Time selected
     if (currentStep === 4) {
         if (!bookingData.time) {
             alert('Veuillez sélectionner un horaire');
@@ -127,7 +178,6 @@ function nextStep() {
         currentStep = 5;
         showStep(currentStep);
 
-        // Show/hide address field
         const adresseInput = document.getElementById('adresseInput');
         if (bookingData.rdvType === 'domicile') {
             adresseInput.style.display = 'block';
@@ -158,25 +208,21 @@ function prevStep() {
 }
 
 function showStep(step) {
-    // Hide all steps
     document.querySelectorAll('.form-step').forEach(stepEl => {
         stepEl.classList.remove('active');
     });
 
-    // Show current step
-    const currentStepEl = document.querySelector(`[data-step="${step}"]`);
+    const currentStepEl = document.querySelector('[data-step="' + step + '"]');
     if (currentStepEl) {
         currentStepEl.classList.add('active');
     }
 
-    // Update progress bar
     const progressFill = document.getElementById('progressFill');
     if (progressFill) {
         const progressPercent = (step / totalSteps) * 100;
         progressFill.style.width = progressPercent + '%';
     }
 
-    // Show/hide navigation buttons
     const prevBtn = document.getElementById('prevBtn');
     const nextBtn = document.getElementById('nextBtn');
     const submitBtn = document.getElementById('submitBtn');
@@ -212,14 +258,13 @@ function validateStep(step) {
     }
 }
 
-// ==================== CALENDAR ====================
+// Calendar - FIXED: Only weekdays (Mon-Fri), no weekends
 function generateCalendar() {
     const calendarEl = document.getElementById('calendar');
     const currentMonthEl = document.getElementById('currentMonth');
     const prevMonthBtn = document.getElementById('prevMonth');
     const nextMonthBtn = document.getElementById('nextMonth');
 
-    // Setup month navigation
     prevMonthBtn.onclick = () => {
         currentCalendarMonth.setMonth(currentCalendarMonth.getMonth() - 1);
         generateCalendar();
@@ -230,15 +275,15 @@ function generateCalendar() {
         generateCalendar();
     };
 
-    // Update month name
     const monthNames = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin',
                         'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'];
-    currentMonthEl.textContent = `${monthNames[currentCalendarMonth.getMonth()]} ${currentCalendarMonth.getFullYear()}`;
+    const monthIndex = currentCalendarMonth.getMonth();
+    const year = currentCalendarMonth.getFullYear();
+    currentMonthEl.textContent = monthNames[monthIndex] + ' ' + year;
 
-    // Clear calendar
     calendarEl.innerHTML = '';
 
-    // Add day names
+    // Day names - Only weekdays
     const dayNames = ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven'];
     dayNames.forEach(day => {
         const dayNameEl = document.createElement('div');
@@ -247,20 +292,15 @@ function generateCalendar() {
         calendarEl.appendChild(dayNameEl);
     });
 
-    // Get month details
-    const year = currentCalendarMonth.getFullYear();
     const month = currentCalendarMonth.getMonth();
     const firstDay = new Date(year, month, 1);
     const lastDay = new Date(year, month + 1, 0);
     const today = new Date();
     today.setHours(0, 0, 0, 0);
 
-    // Get first weekday (0 = Sunday, 1 = Monday, etc.)
     let firstWeekday = firstDay.getDay();
-    // Convert Sunday (0) to 6, and shift others by -1
     firstWeekday = firstWeekday === 0 ? 6 : firstWeekday - 1;
 
-    // Add empty cells for days before month starts (only weekdays)
     const emptyCellsNeeded = firstWeekday;
     for (let i = 0; i < emptyCellsNeeded; i++) {
         const emptyEl = document.createElement('div');
@@ -268,12 +308,12 @@ function generateCalendar() {
         calendarEl.appendChild(emptyEl);
     }
 
-    // Add all days of the month (only weekdays)
+    // Add all days - SKIP WEEKENDS
     for (let day = 1; day <= lastDay.getDate(); day++) {
         const date = new Date(year, month, day);
         const dayOfWeek = date.getDay();
 
-        // Skip weekends (Saturday = 6, Sunday = 0)
+        // FIXED: Skip Saturday (6) and Sunday (0)
         if (dayOfWeek === 0 || dayOfWeek === 6) {
             continue;
         }
@@ -282,24 +322,21 @@ function generateCalendar() {
         dayEl.classList.add('calendar-day');
         dayEl.textContent = day;
 
-        // Disable past dates
         if (date < today) {
             dayEl.classList.add('disabled');
         } else {
-            // Mark today
             if (date.toDateString() === today.toDateString()) {
                 dayEl.classList.add('today');
             }
 
-            // Make clickable
-            dayEl.dataset.date = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+            const monthStr = String(month + 1).padStart(2, '0');
+            const dayStr = String(day).padStart(2, '0');
+            dayEl.dataset.date = year + '-' + monthStr + '-' + dayStr;
             dayEl.addEventListener('click', function() {
-                // Remove previous selection
                 document.querySelectorAll('.calendar-day.selected').forEach(el => {
                     el.classList.remove('selected');
                 });
 
-                // Select this day
                 this.classList.add('selected');
                 bookingData.date = this.dataset.date;
             });
@@ -309,23 +346,19 @@ function generateCalendar() {
     }
 }
 
-// ==================== TIME SLOTS ====================
+// Time Slots - FIXED: 8h-19h Monday to Friday only
 function generateTimeSlots() {
     const timeSlotsEl = document.getElementById('timeSlots');
     timeSlotsEl.innerHTML = '';
 
-    const selectedDate = new Date(bookingData.date);
-    const dayOfWeek = selectedDate.getDay();
+    // FIXED: Hours 8h-19h
+    const timeSlots = [
+        '08:00', '08:30', '09:00', '09:30', '10:00', '10:30', '11:00', '11:30',
+        '12:00', '12:30', '13:00', '13:30', '14:00', '14:30', '15:00', '15:30',
+        '16:00', '16:30', '17:00', '17:30', '18:00', '18:30', '19:00'
+    ];
 
-    // Morning slots
-    const morningSlots = ['09:00', '09:30', '10:00', '10:30', '11:00', '11:30', '12:00'];
-    // Afternoon slots
-    const afternoonSlots = ['14:00', '14:30', '15:00', '15:30', '16:00', '16:30', '17:00'];
-
-    // Combine all slots
-    const allSlots = [...morningSlots, ...afternoonSlots];
-
-    allSlots.forEach(time => {
+    timeSlots.forEach(time => {
         const slotEl = createTimeSlot(time);
         timeSlotsEl.appendChild(slotEl);
     });
@@ -343,12 +376,10 @@ function createTimeSlot(time) {
         slotEl.classList.add('disabled');
     } else {
         slotEl.addEventListener('click', function() {
-            // Remove previous selection
             document.querySelectorAll('.time-slot.selected').forEach(el => {
                 el.classList.remove('selected');
             });
 
-            // Select this slot
             this.classList.add('selected');
             bookingData.time = this.dataset.time;
         });
@@ -357,43 +388,38 @@ function createTimeSlot(time) {
     return slotEl;
 }
 
-// ==================== FORM SUBMISSION ====================
+// Form Submission
 function submitBooking() {
-    // Collect form data
     bookingData.nom = document.getElementById('nom').value;
     bookingData.telephone = document.getElementById('telephone').value;
     bookingData.email = document.getElementById('email').value;
     bookingData.adresse = document.getElementById('adresse').value;
     bookingData.projet = document.getElementById('projet').value;
 
-    // Validate
     if (!bookingData.nom || !bookingData.telephone || !bookingData.email) {
         alert('Veuillez remplir tous les champs obligatoires');
         return;
     }
 
-    // Format date for display
     const dateObj = new Date(bookingData.date);
     const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
     const formattedDate = dateObj.toLocaleDateString('fr-FR', options);
 
-    // Log booking data (in production, send to server)
     console.log('Booking data:', bookingData);
 
-    // Hide form, show confirmation
     document.getElementById('bookingForm').style.display = 'none';
     const confirmationEl = document.getElementById('confirmationMessage');
     const confirmationDetails = document.getElementById('confirmationDetails');
 
-    let detailsHTML = `
-        <strong>${formattedDate}</strong> à <strong>${bookingData.time}</strong><br>
-        ${bookingData.rdvType === 'showroom' ? 'Au showroom' : 'À domicile'} ${bookingData.ville ? `(${bookingData.ville})` : ''}<br>
-        ${bookingData.nom} - ${bookingData.telephone}
-    `;
+    let detailsHTML = '<strong>' + formattedDate + '</strong> à <strong>' + bookingData.time + '</strong><br>';
+    detailsHTML += (bookingData.rdvType === 'showroom' ? 'Au showroom' : 'À domicile');
+    if (bookingData.ville) {
+        detailsHTML += ' (' + bookingData.ville + ')';
+    }
+    detailsHTML += '<br>' + bookingData.nom + ' - ' + bookingData.telephone;
 
     confirmationDetails.innerHTML = detailsHTML;
     confirmationEl.style.display = 'block';
 
-    // Scroll to confirmation
     confirmationEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
 }
