@@ -1,6 +1,7 @@
 // ==================== GLOBAL VARIABLES ====================
 let currentStep = 1;
 const totalSteps = 5;
+let currentCalendarMonth = new Date();
 let bookingData = {
     rdvType: '',
     ville: '',
@@ -15,34 +16,9 @@ let bookingData = {
 
 // ==================== INITIALIZATION ====================
 document.addEventListener('DOMContentLoaded', function() {
-    initializeHeader();
-    initializeBookingForm();
     initializeSmoothScroll();
+    initializeBookingForm();
 });
-
-// ==================== HEADER ====================
-function initializeHeader() {
-    const header = document.getElementById('header');
-    const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
-    const nav = document.querySelector('.nav');
-
-    // Sticky header effect
-    window.addEventListener('scroll', function() {
-        if (window.scrollY > 100) {
-            header.style.padding = '10px 0';
-        } else {
-            header.style.padding = '20px 0';
-        }
-    });
-
-    // Mobile menu toggle
-    if (mobileMenuToggle) {
-        mobileMenuToggle.addEventListener('click', function() {
-            nav.classList.toggle('active');
-            this.classList.toggle('active');
-        });
-    }
-}
 
 // ==================== SMOOTH SCROLL ====================
 function initializeSmoothScroll() {
@@ -71,8 +47,7 @@ function initializeBookingForm() {
     document.querySelectorAll('input[name="rdvType"]').forEach(radio => {
         radio.addEventListener('change', function() {
             bookingData.rdvType = this.value;
-            // Auto-advance to next step
-            setTimeout(() => nextStep(), 500);
+            setTimeout(() => nextStep(), 400);
         });
     });
 
@@ -104,10 +79,10 @@ function nextStep() {
         return;
     }
 
-    // Special handling for step 1 to 2
+    // Step 1: RDV type selected
     if (currentStep === 1) {
         if (bookingData.rdvType === 'showroom') {
-            // Skip ville selection for showroom
+            // Skip ville for showroom
             currentStep = 3;
             showStep(currentStep);
             generateCalendar();
@@ -119,7 +94,7 @@ function nextStep() {
         }
     }
 
-    // Special handling for step 2 to 3
+    // Step 2: Ville selected
     if (currentStep === 2) {
         if (!bookingData.ville) {
             alert('Veuillez sélectionner votre ville');
@@ -131,7 +106,7 @@ function nextStep() {
         return;
     }
 
-    // Step 3 to 4
+    // Step 3: Date selected
     if (currentStep === 3) {
         if (!bookingData.date) {
             alert('Veuillez sélectionner une date');
@@ -143,7 +118,7 @@ function nextStep() {
         return;
     }
 
-    // Step 4 to 5
+    // Step 4: Time selected
     if (currentStep === 4) {
         if (!bookingData.time) {
             alert('Veuillez sélectionner un horaire');
@@ -152,13 +127,13 @@ function nextStep() {
         currentStep = 5;
         showStep(currentStep);
 
-        // Show/hide address field based on RDV type
-        const adresseGroup = document.getElementById('adresseGroup');
+        // Show/hide address field
+        const adresseInput = document.getElementById('adresseInput');
         if (bookingData.rdvType === 'domicile') {
-            adresseGroup.style.display = 'block';
+            adresseInput.style.display = 'block';
             document.getElementById('adresse').required = true;
         } else {
-            adresseGroup.style.display = 'none';
+            adresseInput.style.display = 'none';
             document.getElementById('adresse').required = false;
         }
         return;
@@ -168,7 +143,6 @@ function nextStep() {
 function prevStep() {
     if (currentStep === 1) return;
 
-    // Special handling for going back from step 3
     if (currentStep === 3) {
         if (bookingData.rdvType === 'showroom') {
             currentStep = 1;
@@ -195,27 +169,25 @@ function showStep(step) {
         currentStepEl.classList.add('active');
     }
 
-    // Update progress dots
-    document.querySelectorAll('.progress-dot').forEach((dot, index) => {
-        if (index < step) {
-            dot.classList.add('active');
-        } else {
-            dot.classList.remove('active');
-        }
-    });
+    // Update progress bar
+    const progressFill = document.getElementById('progressFill');
+    if (progressFill) {
+        const progressPercent = (step / totalSteps) * 100;
+        progressFill.style.width = progressPercent + '%';
+    }
 
     // Show/hide navigation buttons
     const prevBtn = document.getElementById('prevBtn');
     const nextBtn = document.getElementById('nextBtn');
     const submitBtn = document.getElementById('submitBtn');
 
-    prevBtn.style.display = step === 1 ? 'none' : 'inline-block';
+    prevBtn.style.display = step === 1 ? 'none' : 'block';
 
     if (step === 5) {
         nextBtn.style.display = 'none';
-        submitBtn.style.display = 'inline-block';
+        submitBtn.style.display = 'block';
     } else {
-        nextBtn.style.display = 'inline-block';
+        nextBtn.style.display = 'block';
         submitBtn.style.display = 'none';
     }
 }
@@ -243,14 +215,31 @@ function validateStep(step) {
 // ==================== CALENDAR ====================
 function generateCalendar() {
     const calendarEl = document.getElementById('calendar');
+    const currentMonthEl = document.getElementById('currentMonth');
+    const prevMonthBtn = document.getElementById('prevMonth');
+    const nextMonthBtn = document.getElementById('nextMonth');
+
+    // Setup month navigation
+    prevMonthBtn.onclick = () => {
+        currentCalendarMonth.setMonth(currentCalendarMonth.getMonth() - 1);
+        generateCalendar();
+    };
+
+    nextMonthBtn.onclick = () => {
+        currentCalendarMonth.setMonth(currentCalendarMonth.getMonth() + 1);
+        generateCalendar();
+    };
+
+    // Update month name
+    const monthNames = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin',
+                        'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'];
+    currentMonthEl.textContent = `${monthNames[currentCalendarMonth.getMonth()]} ${currentCalendarMonth.getFullYear()}`;
+
+    // Clear calendar
     calendarEl.innerHTML = '';
 
-    const today = new Date();
-    const currentMonth = today.getMonth();
-    const currentYear = today.getFullYear();
-
-    // Day names
-    const dayNames = ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'];
+    // Add day names
+    const dayNames = ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven'];
     dayNames.forEach(day => {
         const dayNameEl = document.createElement('div');
         dayNameEl.classList.add('calendar-day', 'day-name');
@@ -258,44 +247,52 @@ function generateCalendar() {
         calendarEl.appendChild(dayNameEl);
     });
 
-    // Calculate days to show (next 30 days)
-    const daysToShow = 28; // 4 weeks
+    // Get month details
+    const year = currentCalendarMonth.getFullYear();
+    const month = currentCalendarMonth.getMonth();
+    const firstDay = new Date(year, month, 1);
+    const lastDay = new Date(year, month + 1, 0);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
 
-    // Get first day offset (Monday = 0)
-    const firstDay = today.getDay();
-    const offset = firstDay === 0 ? 6 : firstDay - 1;
+    // Get first weekday (0 = Sunday, 1 = Monday, etc.)
+    let firstWeekday = firstDay.getDay();
+    // Convert Sunday (0) to 6, and shift others by -1
+    firstWeekday = firstWeekday === 0 ? 6 : firstWeekday - 1;
 
-    // Add empty cells for offset
-    for (let i = 0; i < offset; i++) {
+    // Add empty cells for days before month starts (only weekdays)
+    const emptyCellsNeeded = firstWeekday;
+    for (let i = 0; i < emptyCellsNeeded; i++) {
         const emptyEl = document.createElement('div');
         emptyEl.classList.add('calendar-day', 'disabled');
         calendarEl.appendChild(emptyEl);
     }
 
-    // Add days
-    for (let i = 0; i < daysToShow; i++) {
-        const date = new Date(today);
-        date.setDate(today.getDate() + i);
+    // Add all days of the month (only weekdays)
+    for (let day = 1; day <= lastDay.getDate(); day++) {
+        const date = new Date(year, month, day);
+        const dayOfWeek = date.getDay();
+
+        // Skip weekends (Saturday = 6, Sunday = 0)
+        if (dayOfWeek === 0 || dayOfWeek === 6) {
+            continue;
+        }
 
         const dayEl = document.createElement('div');
         dayEl.classList.add('calendar-day');
+        dayEl.textContent = day;
 
-        // Mark today
-        if (i === 0) {
-            dayEl.classList.add('today');
-        }
-
-        // Disable Sundays and past dates
-        const dayOfWeek = date.getDay();
-        if (dayOfWeek === 0 || i < 0) {
+        // Disable past dates
+        if (date < today) {
             dayEl.classList.add('disabled');
-        }
+        } else {
+            // Mark today
+            if (date.toDateString() === today.toDateString()) {
+                dayEl.classList.add('today');
+            }
 
-        dayEl.textContent = date.getDate();
-        dayEl.dataset.date = date.toISOString().split('T')[0];
-
-        // Click handler
-        if (!dayEl.classList.contains('disabled')) {
+            // Make clickable
+            dayEl.dataset.date = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
             dayEl.addEventListener('click', function() {
                 // Remove previous selection
                 document.querySelectorAll('.calendar-day.selected').forEach(el => {
@@ -317,44 +314,21 @@ function generateTimeSlots() {
     const timeSlotsEl = document.getElementById('timeSlots');
     timeSlotsEl.innerHTML = '';
 
-    // Define time slots
-    const morningSlots = ['09:00', '09:30', '10:00', '10:30', '11:00', '11:30'];
-    const afternoonSlots = ['14:00', '14:30', '15:00', '15:30', '16:00', '16:30', '17:00', '17:30'];
-
-    // Check if selected date is Saturday
     const selectedDate = new Date(bookingData.date);
-    const isSaturday = selectedDate.getDay() === 6;
+    const dayOfWeek = selectedDate.getDay();
 
-    // Add morning header
-    const morningHeader = document.createElement('div');
-    morningHeader.style.gridColumn = '1 / -1';
-    morningHeader.style.fontWeight = '700';
-    morningHeader.style.marginTop = '10px';
-    morningHeader.style.color = 'var(--primary-color)';
-    morningHeader.textContent = 'Matin';
-    timeSlotsEl.appendChild(morningHeader);
+    // Morning slots
+    const morningSlots = ['09:00', '09:30', '10:00', '10:30', '11:00', '11:30', '12:00'];
+    // Afternoon slots
+    const afternoonSlots = ['14:00', '14:30', '15:00', '15:30', '16:00', '16:30', '17:00'];
 
-    // Add morning slots
-    morningSlots.forEach(time => {
+    // Combine all slots
+    const allSlots = [...morningSlots, ...afternoonSlots];
+
+    allSlots.forEach(time => {
         const slotEl = createTimeSlot(time);
         timeSlotsEl.appendChild(slotEl);
     });
-
-    // Add afternoon slots only if not Saturday
-    if (!isSaturday) {
-        const afternoonHeader = document.createElement('div');
-        afternoonHeader.style.gridColumn = '1 / -1';
-        afternoonHeader.style.fontWeight = '700';
-        afternoonHeader.style.marginTop = '20px';
-        afternoonHeader.style.color = 'var(--primary-color)';
-        afternoonHeader.textContent = 'Après-midi';
-        timeSlotsEl.appendChild(afternoonHeader);
-
-        afternoonSlots.forEach(time => {
-            const slotEl = createTimeSlot(time);
-            timeSlotsEl.appendChild(slotEl);
-        });
-    }
 }
 
 function createTimeSlot(time) {
@@ -364,10 +338,9 @@ function createTimeSlot(time) {
     slotEl.dataset.time = time;
 
     // Randomly disable some slots (simulating booked slots)
-    const isBooked = Math.random() > 0.7;
+    const isBooked = Math.random() > 0.75;
     if (isBooked) {
         slotEl.classList.add('disabled');
-        slotEl.title = 'Créneau indisponible';
     } else {
         slotEl.addEventListener('click', function() {
             // Remove previous selection
@@ -404,104 +377,23 @@ function submitBooking() {
     const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
     const formattedDate = dateObj.toLocaleDateString('fr-FR', options);
 
-    // Here you would normally send the data to a server
+    // Log booking data (in production, send to server)
     console.log('Booking data:', bookingData);
 
-    // Simulate API call
-    setTimeout(() => {
-        // Hide form
-        document.getElementById('bookingForm').style.display = 'none';
+    // Hide form, show confirmation
+    document.getElementById('bookingForm').style.display = 'none';
+    const confirmationEl = document.getElementById('confirmationMessage');
+    const confirmationDetails = document.getElementById('confirmationDetails');
 
-        // Show confirmation
-        const confirmationEl = document.getElementById('confirmationMessage');
-        const confirmationDetails = document.getElementById('confirmationDetails');
+    let detailsHTML = `
+        <strong>${formattedDate}</strong> à <strong>${bookingData.time}</strong><br>
+        ${bookingData.rdvType === 'showroom' ? 'Au showroom' : 'À domicile'} ${bookingData.ville ? `(${bookingData.ville})` : ''}<br>
+        ${bookingData.nom} - ${bookingData.telephone}
+    `;
 
-        let detailsHTML = `
-            <strong>Type de rendez-vous :</strong> ${bookingData.rdvType === 'showroom' ? 'Showroom' : 'À domicile'}<br>
-            ${bookingData.rdvType === 'domicile' ? `<strong>Ville :</strong> ${bookingData.ville}<br>` : ''}
-            <strong>Date :</strong> ${formattedDate}<br>
-            <strong>Heure :</strong> ${bookingData.time}<br>
-            <strong>Contact :</strong> ${bookingData.nom} - ${bookingData.telephone}
-        `;
+    confirmationDetails.innerHTML = detailsHTML;
+    confirmationEl.style.display = 'block';
 
-        confirmationDetails.innerHTML = detailsHTML;
-        confirmationEl.style.display = 'block';
-
-        // Scroll to confirmation
-        confirmationEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
-
-        // Send email notification (in a real app)
-        sendBookingNotification(bookingData);
-    }, 500);
+    // Scroll to confirmation
+    confirmationEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
 }
-
-// ==================== EMAIL NOTIFICATION (Simulated) ====================
-function sendBookingNotification(data) {
-    // In a real application, this would send an email via a backend API
-    console.log('Sending notification email...');
-    console.log('To: contact@jlb-cuisine.fr');
-    console.log('Subject: Nouvelle demande de rendez-vous');
-    console.log('Data:', data);
-
-    // For demonstration, we'll just log it
-    // In production, you would use a backend service like:
-    // - PHP mail()
-    // - Node.js with nodemailer
-    // - Email service API (SendGrid, Mailgun, etc.)
-
-    /* Example backend call:
-    fetch('/api/send-booking', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data)
-    })
-    .then(response => response.json())
-    .then(result => {
-        console.log('Email sent successfully:', result);
-    })
-    .catch(error => {
-        console.error('Error sending email:', error);
-    });
-    */
-}
-
-// ==================== UTILITY FUNCTIONS ====================
-function formatPhoneNumber(phone) {
-    // Format French phone number
-    return phone.replace(/(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})/, '$1 $2 $3 $4 $5');
-}
-
-function validateEmail(email) {
-    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return re.test(email);
-}
-
-// ==================== ANIMATIONS ====================
-// Add fade-in animation for sections on scroll
-const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -100px 0px'
-};
-
-const observer = new IntersectionObserver(function(entries) {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.style.opacity = '1';
-            entry.target.style.transform = 'translateY(0)';
-        }
-    });
-}, observerOptions);
-
-// Observe all service cards and other elements
-document.addEventListener('DOMContentLoaded', function() {
-    const elementsToAnimate = document.querySelectorAll('.service-card, .step, .avantage-card');
-
-    elementsToAnimate.forEach(el => {
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(30px)';
-        el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-        observer.observe(el);
-    });
-});
