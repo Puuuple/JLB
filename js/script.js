@@ -499,6 +499,19 @@ function submitBooking() {
     const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
     const formattedDate = dateObj.toLocaleDateString('fr-FR', options);
 
+    // Envoi de l'email de confirmation (à implémenter côté backend)
+    sendConfirmationEmail({
+        nom: bookingData.nom,
+        email: bookingData.email,
+        telephone: bookingData.telephone,
+        date: formattedDate,
+        time: bookingData.time,
+        type: bookingData.rdvType,
+        ville: bookingData.ville,
+        adresse: bookingData.adresse,
+        projet: bookingData.projet
+    });
+
     console.log('Booking data:', bookingData);
 
     document.getElementById('bookingForm').style.display = 'none';
@@ -510,12 +523,34 @@ function submitBooking() {
     if (bookingData.ville) {
         detailsHTML += ' (' + bookingData.ville + ')';
     }
-    detailsHTML += '<br>' + bookingData.nom + ' - ' + bookingData.telephone;
+    detailsHTML += '<br><br>Un email de confirmation a été envoyé à :<br><strong>' + bookingData.email + '</strong>';
 
     confirmationDetails.innerHTML = detailsHTML;
     confirmationEl.style.display = 'block';
 
     confirmationEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+    // Retour à la page d'accueil après 5 secondes
+    setTimeout(function() {
+        window.location.href = '#accueil';
+        location.reload();
+    }, 5000);
+}
+
+// Envoi email de confirmation (à connecter avec un backend)
+function sendConfirmationEmail(data) {
+    // Simulation - Dans un vrai projet, faire un appel API
+    console.log('Email de confirmation envoyé à:', data.email);
+    console.log('Détails:', data);
+
+    // Exemple d'appel API (à implémenter côté backend):
+    /*
+    fetch('/api/send-confirmation', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+    });
+    */
 }
 
 // Initialize Interactive Map

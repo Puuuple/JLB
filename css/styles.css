@@ -460,98 +460,68 @@ section {
     padding: 80px 0;
 }
 
-.features-grid {
+.features-simple {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 24px;
+    grid-template-columns: 1fr 2fr;
+    gap: 40px;
+    align-items: center;
+    max-width: 900px;
+    margin: 0 auto;
 }
 
-.feature-card {
-    background: var(--gray-50);
+.feature-stat {
+    text-align: center;
     padding: 40px;
-    border-radius: 20px;
-    transition: all 0.3s;
 }
 
-.feature-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-}
-
-.feature-large {
-    grid-row: span 2;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    background: linear-gradient(135deg, var(--secondary) 0%, #d4b06a 100%);
-    color: var(--white);
-}
-
-.feature-number {
+.stat-number {
     font-family: var(--font-display);
     font-size: 120px;
     font-weight: 800;
     line-height: 1;
-    margin-bottom: 16px;
-    color: rgba(255,255,255,0.9);
+    background: linear-gradient(135deg, var(--secondary) 0%, #d4b06a 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
-.feature-text h3 {
+.stat-label {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--gray-600);
+    margin-top: 8px;
+}
+
+.feature-cta-card {
+    background: var(--primary);
+    color: var(--white);
+    padding: 48px;
+    border-radius: 20px;
+    text-align: center;
+}
+
+.feature-cta-card h3 {
     font-family: var(--font-display);
     font-size: 32px;
     font-weight: 700;
-    margin-bottom: 12px;
-}
-
-.feature-text p {
-    font-size: 16px;
-    line-height: 1.6;
-    opacity: 0.95;
-}
-
-.feature-badge {
-    display: inline-block;
-    background: var(--primary);
-    color: var(--white);
-    padding: 8px 16px;
-    border-radius: 8px;
-    font-weight: 700;
-    font-size: 18px;
     margin-bottom: 16px;
 }
 
-.feature-card h3 {
-    font-size: 22px;
-    font-weight: 600;
-    margin-bottom: 12px;
-}
-
-.feature-card p {
-    color: var(--gray-600);
-    line-height: 1.7;
-    font-size: 15px;
-}
-
-.feature-dark {
-    background: var(--primary);
-    color: var(--white);
-}
-
-.feature-dark p {
+.feature-cta-card p {
+    font-size: 16px;
     color: rgba(255,255,255,0.9);
+    margin-bottom: 24px;
+    line-height: 1.6;
 }
 
-.feature-link {
-    display: inline-block;
-    margin-top: 16px;
-    color: var(--white);
-    text-decoration: none;
-    font-weight: 600;
-    transition: all 0.3s;
+.feature-cta-card .btn {
+    background: var(--white);
+    color: var(--primary);
 }
 
-.feature-link:hover {
-    transform: translateX(5px);
+.feature-cta-card .btn:hover {
+    background: var(--gray-100);
+    transform: translateY(-2px);
 }
 
 /* CTA Section */
@@ -1172,8 +1142,22 @@ section {
 
 .confirmation p {
     color: var(--gray-600);
-    margin-bottom: 32px;
+    margin-bottom: 24px;
     line-height: 1.8;
+}
+
+.confirmation-thanks {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--primary);
+    margin-top: 24px !important;
+    margin-bottom: 16px !important;
+}
+
+.confirmation-redirect {
+    color: var(--gray-400);
+    font-size: 14px;
+    margin-bottom: 0 !important;
 }
 
 /* Footer */
@@ -1242,24 +1226,25 @@ section {
     .header-content { padding: 12px 0; }
     .logo { font-size: 24px; }
     .logo-sub { font-size: 10px; }
-    .btn-header { padding: 8px 16px; font-size: 14px; }
+    .btn-header { padding: 8px 12px; font-size: 13px; }
     .nav {
         display: flex !important;
-        gap: 16px;
-        position: absolute;
-        right: 80px;
+        gap: 12px;
+        position: relative;
+        right: auto;
     }
     .nav a:not(.nav-phone) { display: none; }
     .phone-number { display: none; }
-    .nav-phone { font-size: 24px; }
+    .nav-phone { font-size: 20px; padding: 6px 12px; }
     .hero { padding: 100px 0 60px; }
     .hero-image { width: 100%; opacity: 0.3; }
     .hero h1 { font-size: 42px; }
     .hero-cta { flex-direction: column; gap: 12px; }
     .hero-cta .btn { width: 100%; }
-    .features-grid { grid-template-columns: 1fr; }
-    .feature-large { grid-row: span 1; }
-    .feature-number { font-size: 80px; }
+    .features-simple { grid-template-columns: 1fr; gap: 32px; }
+    .stat-number { font-size: 80px; }
+    .feature-cta-card { padding: 32px 24px; }
+    .feature-cta-card h3 { font-size: 24px; }
     .zone-split { grid-template-columns: 1fr; gap: 40px; }
     .cta-content h2 { font-size: 32px; }
     .cta-actions { flex-direction: column; width: 100%; }
