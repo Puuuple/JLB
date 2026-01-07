@@ -38,7 +38,7 @@
     <section class="hero" id="accueil">
         <div class="hero-bg"></div>
         <div class="hero-image">
-            <img src="https://images.unsplash.com/photo-1556912173-46c336c7fd55?w=1600&h=900&fit=crop" alt="Cuisine moderne">
+            <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=1600&h=900&fit=crop&q=80" alt="Cuisine moderne sur-mesure">
         </div>
         <div class="container">
             <div class="hero-content">
@@ -233,29 +233,126 @@
                 <h2>Avant / Après</h2>
                 <p>Découvrez nos rénovations de cuisines et salles de bain à Lyon, Rillieux-la-Pape, Villeurbanne, Meyzieu, Décines, Vaulx-en-Velin et toute la région lyonnaise</p>
             </div>
-            <div class="ba-slider-container">
-                <div class="ba-slider">
-                    <div class="ba-image-container">
-                        <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=1200&h=800&fit=crop" alt="Avant" class="ba-before">
-                        <img src="https://images.unsplash.com/photo-1556911220-bff31c812dba?w=1200&h=800&fit=crop" alt="Après" class="ba-after">
-                        <div class="ba-handle" id="baHandle">
-                            <div class="ba-handle-line"></div>
-                            <div class="ba-handle-button">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                    <path d="M11 6L5 12L11 18" stroke="currentColor" stroke-width="2"/>
-                                    <path d="M13 6L19 12L13 18" stroke="currentColor" stroke-width="2"/>
-                                </svg>
+            <div class="ba-carousel">
+                <button class="carousel-nav carousel-prev" id="carouselPrev">‹</button>
+                <button class="carousel-nav carousel-next" id="carouselNext">›</button>
+
+                <div class="ba-slides" id="baSlides">
+                    <!-- Slide 1 - Cuisine moderne -->
+                    <div class="ba-slide active">
+                        <div class="ba-slider">
+                            <div class="ba-image-container">
+                                <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=1200&h=800&fit=crop&q=80" alt="Avant cuisine" class="ba-before">
+                                <img src="https://images.unsplash.com/photo-1556911220-bff31c812dba?w=1200&h=800&fit=crop&q=80" alt="Après cuisine" class="ba-after">
+                                <div class="ba-handle">
+                                    <div class="ba-handle-line"></div>
+                                    <div class="ba-handle-button">
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                            <path d="M11 6L5 12L11 18" stroke="currentColor" stroke-width="2"/>
+                                            <path d="M13 6L19 12L13 18" stroke="currentColor" stroke-width="2"/>
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="ba-labels">
+                                <span class="ba-label ba-label-before">Avant</span>
+                                <span class="ba-label ba-label-after">Après</span>
                             </div>
                         </div>
+                        <div class="ba-info">
+                            <h3>Cuisine contemporaine - Lyon 6ème</h3>
+                            <p>Rénovation complète avec îlot central, plan de travail en quartz et ouverture sur salon</p>
+                        </div>
                     </div>
-                    <div class="ba-labels">
-                        <span class="ba-label ba-label-before">Avant</span>
-                        <span class="ba-label ba-label-after">Après</span>
+
+                    <!-- Slide 2 - Salle de bain -->
+                    <div class="ba-slide">
+                        <div class="ba-slider">
+                            <div class="ba-image-container">
+                                <img src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=1200&h=800&fit=crop&q=80" alt="Avant salle de bain" class="ba-before">
+                                <img src="https://images.unsplash.com/photo-1620626011761-996317b8d101?w=1200&h=800&fit=crop&q=80" alt="Après salle de bain" class="ba-after">
+                                <div class="ba-handle">
+                                    <div class="ba-handle-line"></div>
+                                    <div class="ba-handle-button">
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                            <path d="M11 6L5 12L11 18" stroke="currentColor" stroke-width="2"/>
+                                            <path d="M13 6L19 12L13 18" stroke="currentColor" stroke-width="2"/>
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="ba-labels">
+                                <span class="ba-label ba-label-before">Avant</span>
+                                <span class="ba-label ba-label-after">Après</span>
+                            </div>
+                        </div>
+                        <div class="ba-info">
+                            <h3>Salle de bain moderne - Villeurbanne</h3>
+                            <p>Douche à l'italienne, vasque double et carrelage XXL pour un espace épuré</p>
+                        </div>
+                    </div>
+
+                    <!-- Slide 3 - Cuisine bois -->
+                    <div class="ba-slide">
+                        <div class="ba-slider">
+                            <div class="ba-image-container">
+                                <img src="https://images.unsplash.com/photo-1565183997392-2f5d6bb6b7fa?w=1200&h=800&fit=crop&q=80" alt="Avant cuisine" class="ba-before">
+                                <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=1200&h=800&fit=crop&q=80" alt="Après cuisine" class="ba-after">
+                                <div class="ba-handle">
+                                    <div class="ba-handle-line"></div>
+                                    <div class="ba-handle-button">
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                            <path d="M11 6L5 12L11 18" stroke="currentColor" stroke-width="2"/>
+                                            <path d="M13 6L19 12L13 18" stroke="currentColor" stroke-width="2"/>
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="ba-labels">
+                                <span class="ba-label ba-label-before">Avant</span>
+                                <span class="ba-label ba-label-after">Après</span>
+                            </div>
+                        </div>
+                        <div class="ba-info">
+                            <h3>Cuisine scandinave - Rillieux-la-Pape</h3>
+                            <p>Design épuré, bois clair et électroménager encastré haut de gamme</p>
+                        </div>
+                    </div>
+
+                    <!-- Slide 4 - Salle de bain luxe -->
+                    <div class="ba-slide">
+                        <div class="ba-slider">
+                            <div class="ba-image-container">
+                                <img src="https://images.unsplash.com/photo-1507652313519-d4e9174996dd?w=1200&h=800&fit=crop&q=80" alt="Avant salle de bain" class="ba-before">
+                                <img src="https://images.unsplash.com/photo-1600566753151-384129cf4e3e?w=1200&h=800&fit=crop&q=80" alt="Après salle de bain" class="ba-after">
+                                <div class="ba-handle">
+                                    <div class="ba-handle-line"></div>
+                                    <div class="ba-handle-button">
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                            <path d="M11 6L5 12L11 18" stroke="currentColor" stroke-width="2"/>
+                                            <path d="M13 6L19 12L13 18" stroke="currentColor" stroke-width="2"/>
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="ba-labels">
+                                <span class="ba-label ba-label-before">Avant</span>
+                                <span class="ba-label ba-label-after">Après</span>
+                            </div>
+                        </div>
+                        <div class="ba-info">
+                            <h3>Salle de bain premium - Caluire</h3>
+                            <p>Baignoire îlot, robinetterie dorée et marbre pour un espace spa à domicile</p>
+                        </div>
                     </div>
                 </div>
-                <div class="ba-info">
-                    <h3>Rénovation cuisine Lyon 6ème</h3>
-                    <p>Transformation complète : ouverture sur salon, îlot central sur-mesure et électroménager intégré haut de gamme</p>
+
+                <!-- Carousel dots -->
+                <div class="carousel-dots" id="carouselDots">
+                    <span class="dot active" data-slide="0"></span>
+                    <span class="dot" data-slide="1"></span>
+                    <span class="dot" data-slide="2"></span>
+                    <span class="dot" data-slide="3"></span>
                 </div>
             </div>
         </div>
@@ -349,6 +446,105 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Virtual Tour Section -->
+    <section class="virtual-tour">
+        <div class="container">
+            <div class="vt-content">
+                <div class="vt-text">
+                    <h2>Visitez notre showroom en réalité virtuelle</h2>
+                    <p>Explorez notre exposition de cuisines et salles de bain depuis chez vous grâce à notre visite virtuelle 360°</p>
+                    <div class="vt-features">
+                        <div class="vt-feature">
+                            <span class="vt-icon">🥽</span>
+                            <span>Visite 360° interactive</span>
+                        </div>
+                        <div class="vt-feature">
+                            <span class="vt-icon">📐</span>
+                            <span>Visualisez les dimensions</span>
+                        </div>
+                        <div class="vt-feature">
+                            <span class="vt-icon">💡</span>
+                            <span>Découvrez nos réalisations</span>
+                        </div>
+                    </div>
+                    <a href="#" class="btn btn-primary btn-large">Démarrer la visite virtuelle</a>
+                </div>
+                <div class="vt-image">
+                    <img src="https://images.unsplash.com/photo-1556909212-d5b604d0c90d?w=800&h=600&fit=crop&q=80" alt="Showroom visite virtuelle">
+                    <div class="vt-badge">
+                        <svg width="60" height="60" viewBox="0 0 24 24" fill="none">
+                            <circle cx="12" cy="12" r="11" fill="white" opacity="0.9"/>
+                            <path d="M8 12H16M12 8V16" stroke="#0a0a0a" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Google Reviews Section -->
+    <section class="reviews-section">
+        <div class="container">
+            <div class="section-header-center">
+                <span class="section-tag">Avis clients</span>
+                <h2>Ils nous font confiance</h2>
+                <div class="google-rating">
+                    <div class="rating-stars">★★★★★</div>
+                    <p><strong>4.9/5</strong> basé sur 127 avis Google</p>
+                </div>
+            </div>
+            <div class="reviews-grid">
+                <div class="review-card">
+                    <div class="review-header">
+                        <div class="review-author">
+                            <div class="author-avatar">MC</div>
+                            <div>
+                                <h4>Marie Curie</h4>
+                                <div class="review-stars">★★★★★</div>
+                            </div>
+                        </div>
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg" alt="Google" class="google-logo" width="50">
+                    </div>
+                    <p class="review-text">"Équipe professionnelle et à l'écoute. Ma cuisine est magnifique, exactement comme sur la visualisation 3D. Je recommande vivement !"</p>
+                    <span class="review-date">Il y a 2 semaines</span>
+                </div>
+
+                <div class="review-card">
+                    <div class="review-header">
+                        <div class="review-author">
+                            <div class="author-avatar">JD</div>
+                            <div>
+                                <h4>Jean Dupont</h4>
+                                <div class="review-stars">★★★★★</div>
+                            </div>
+                        </div>
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg" alt="Google" class="google-logo" width="50">
+                    </div>
+                    <p class="review-text">"Rénovation de salle de bain impeccable. Travail soigné, respect des délais et budget. Un grand merci à toute l'équipe !"</p>
+                    <span class="review-date">Il y a 1 mois</span>
+                </div>
+
+                <div class="review-card">
+                    <div class="review-header">
+                        <div class="review-author">
+                            <div class="author-avatar">SL</div>
+                            <div>
+                                <h4>Sophie Laurent</h4>
+                                <div class="review-stars">★★★★★</div>
+                            </div>
+                        </div>
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg" alt="Google" class="google-logo" width="50">
+                    </div>
+                    <p class="review-text">"De la conception à la pose, tout était parfait. La réalité virtuelle nous a vraiment aidés à visualiser le résultat final. Top !"</p>
+                    <span class="review-date">Il y a 3 mois</span>
+                </div>
+            </div>
+            <div class="reviews-cta">
+                <a href="https://g.page/r/YOUR_GOOGLE_BUSINESS_ID/review" target="_blank" class="btn btn-outline-white">Voir tous les avis Google</a>
             </div>
         </div>
     </section>

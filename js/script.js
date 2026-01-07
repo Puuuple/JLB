@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeBookingModal();
     initializeCallbackModal();
     initializeBookingForm();
-    initializeBeforeAfterSlider();
+    initializeBeforeAfterCarousel();
     initializeScrollAnimations();
 });
 
@@ -141,49 +141,87 @@ function initializeCallbackModal() {
     });
 }
 
-// Before/After Slider
-function initializeBeforeAfterSlider() {
-    const container = document.querySelector('.ba-image-container');
-    const handle = document.getElementById('baHandle');
-    const afterImage = document.querySelector('.ba-after');
+// Before/After Carousel
+function initializeBeforeAfterCarousel() {
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.ba-slide');
+    const dots = document.querySelectorAll('.dot');
+    const prevBtn = document.getElementById('carouselPrev');
+    const nextBtn = document.getElementById('carouselNext');
 
-    if (!container || !handle || !afterImage) return;
+    if (slides.length === 0) return;
 
-    let isDragging = false;
+    // Initialize all sliders
+    slides.forEach((slide, index) => {
+        const container = slide.querySelector('.ba-image-container');
+        const handle = slide.querySelector('.ba-handle');
+        const afterImage = slide.querySelector('.ba-after');
 
-    function updateSlider(x) {
-        const rect = container.getBoundingClientRect();
-        let position = ((x - rect.left) / rect.width) * 100;
-        position = Math.max(0, Math.min(100, position));
+        if (!container || !handle || !afterImage) return;
 
-        handle.style.left = position + '%';
-        afterImage.style.clipPath = 'polygon(' + position + '% 0, 100% 0, 100% 100%, ' + position + '% 100%)';
+        let isDragging = false;
+
+        function updateSlider(x) {
+            const rect = container.getBoundingClientRect();
+            let position = ((x - rect.left) / rect.width) * 100;
+            position = Math.max(0, Math.min(100, position));
+
+            handle.style.left = position + '%';
+            afterImage.style.clipPath = 'polygon(' + position + '% 0, 100% 0, 100% 100%, ' + position + '% 100%)';
+        }
+
+        handle.addEventListener('mousedown', () => { isDragging = true; });
+        document.addEventListener('mouseup', () => { isDragging = false; });
+        document.addEventListener('mousemove', (e) => {
+            if (isDragging) {
+                updateSlider(e.clientX);
+            }
+        });
+
+        container.addEventListener('click', (e) => {
+            updateSlider(e.clientX);
+        });
+
+        // Touch support
+        handle.addEventListener('touchstart', (e) => {
+            isDragging = true;
+            e.preventDefault();
+        });
+        document.addEventListener('touchend', () => { isDragging = false; });
+        container.addEventListener('touchmove', (e) => {
+            if (e.touches[0]) {
+                e.preventDefault();
+                updateSlider(e.touches[0].clientX);
+            }
+        }, { passive: false });
+    });
+
+    // Carousel navigation
+    function showSlide(index) {
+        slides.forEach(s => s.classList.remove('active'));
+        dots.forEach(d => d.classList.remove('active'));
+
+        currentSlide = (index + slides.length) % slides.length;
+        slides[currentSlide].classList.add('active');
+        dots[currentSlide].classList.add('active');
     }
 
-    handle.addEventListener('mousedown', () => { isDragging = true; });
-    document.addEventListener('mouseup', () => { isDragging = false; });
-    document.addEventListener('mousemove', (e) => {
-        if (isDragging) {
-            updateSlider(e.clientX);
-        }
+    if (prevBtn) {
+        prevBtn.addEventListener('click', () => showSlide(currentSlide - 1));
+    }
+
+    if (nextBtn) {
+        nextBtn.addEventListener('click', () => showSlide(currentSlide + 1));
+    }
+
+    dots.forEach((dot, index) => {
+        dot.addEventListener('click', () => showSlide(index));
     });
 
-    container.addEventListener('click', (e) => {
-        updateSlider(e.clientX);
-    });
-
-    // Touch support
-    handle.addEventListener('touchstart', (e) => {
-        isDragging = true;
-        e.preventDefault();
-    });
-    document.addEventListener('touchend', () => { isDragging = false; });
-    container.addEventListener('touchmove', (e) => {
-        if (e.touches[0]) {
-            e.preventDefault();
-            updateSlider(e.touches[0].clientX);
-        }
-    }, { passive: false });
+    // Auto-advance every 7 seconds
+    setInterval(() => {
+        showSlide(currentSlide + 1);
+    }, 7000);
 }
 
 // Scroll Animations
