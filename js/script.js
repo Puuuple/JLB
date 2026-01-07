@@ -70,13 +70,17 @@ function initializeBeforeAfterSlider() {
     });
 
     // Touch support
-    handle.addEventListener('touchstart', () => { isDragging = true; });
+    handle.addEventListener('touchstart', (e) => {
+        isDragging = true;
+        e.preventDefault();
+    });
     document.addEventListener('touchend', () => { isDragging = false; });
-    document.addEventListener('touchmove', (e) => {
-        if (isDragging && e.touches[0]) {
+    container.addEventListener('touchmove', (e) => {
+        if (e.touches[0]) {
+            e.preventDefault();
             updateSlider(e.touches[0].clientX);
         }
-    });
+    }, { passive: false });
 }
 
 // Scroll Animations
@@ -90,7 +94,7 @@ function initializeScrollAnimations() {
         });
     }, { threshold: 0.1 });
 
-    document.querySelectorAll('.service-item, .timeline-item, .realisation-card').forEach(el => {
+    document.querySelectorAll('.why-item, .showroom-card').forEach(el => {
         el.style.opacity = '0';
         el.style.transform = 'translateY(30px)';
         el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
@@ -370,20 +374,15 @@ function createTimeSlot(time) {
     slotEl.textContent = time;
     slotEl.dataset.time = time;
 
-    // Randomly disable some slots (simulating booked slots)
-    const isBooked = Math.random() > 0.75;
-    if (isBooked) {
-        slotEl.classList.add('disabled');
-    } else {
-        slotEl.addEventListener('click', function() {
-            document.querySelectorAll('.time-slot.selected').forEach(el => {
-                el.classList.remove('selected');
-            });
-
-            this.classList.add('selected');
-            bookingData.time = this.dataset.time;
+    // All slots are available by default
+    slotEl.addEventListener('click', function() {
+        document.querySelectorAll('.time-slot.selected').forEach(el => {
+            el.classList.remove('selected');
         });
-    }
+
+        this.classList.add('selected');
+        bookingData.time = this.dataset.time;
+    });
 
     return slotEl;
 }
