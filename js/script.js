@@ -18,6 +18,7 @@ let bookingData = {
 document.addEventListener('DOMContentLoaded', function() {
     initializeSmoothScroll();
     initializeBookingModal();
+    initializeCallbackModal();
     initializeBookingForm();
     initializeBeforeAfterSlider();
     initializeScrollAnimations();
@@ -75,6 +76,61 @@ function initializeBookingModal() {
         if (e.key === 'Escape' && modal.classList.contains('active')) {
             closeModal();
         }
+    });
+}
+
+// Callback Modal
+function initializeCallbackModal() {
+    const modal = document.getElementById('callbackModal');
+    const modalOverlay = document.getElementById('callbackOverlay');
+    const modalClose = document.getElementById('callbackClose');
+    const openCallbackBtns = document.querySelectorAll('.open-callback-btn');
+    const form = document.getElementById('callbackForm');
+
+    // Open modal
+    openCallbackBtns.forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+    });
+
+    // Close modal
+    function closeModal() {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    modalClose.addEventListener('click', closeModal);
+    modalOverlay.addEventListener('click', closeModal);
+
+    // Close on ESC key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && modal.classList.contains('active')) {
+            closeModal();
+        }
+    });
+
+    // Handle form submission
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const nom = document.getElementById('callbackNom').value;
+        const tel = document.getElementById('callbackTel').value;
+        const time = document.getElementById('callbackTime').value;
+        const message = document.getElementById('callbackMessage').value;
+
+        if (!nom || !tel || !time) {
+            alert('Veuillez remplir tous les champs obligatoires');
+            return;
+        }
+
+        console.log('Callback request:', { nom, tel, time, message });
+
+        // Show confirmation
+        form.style.display = 'none';
+        document.getElementById('callbackConfirmation').style.display = 'block';
     });
 }
 
@@ -467,48 +523,50 @@ function initializeMap() {
     const mapElement = document.getElementById('map');
     if (!mapElement || typeof L === 'undefined') return;
 
-    // Coordinates for Rillieux-la-Pape (showroom location)
-    const showroomLat = 45.8167;
+    // Coordinates for Rillieux-la-Pape center (showroom location)
+    const showroomLat = 45.8197;
     const showroomLng = 4.8978;
 
-    // Initialize map
+    // Initialize map with better view
     const map = L.map('map', {
         center: [showroomLat, showroomLng],
-        zoom: 11,
+        zoom: 12,
         zoomControl: true,
         scrollWheelZoom: false
     });
 
-    // Add OpenStreetMap tiles
+    // Add better quality tiles
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
         maxZoom: 19
     }).addTo(map);
 
-    // Custom icon for showroom
-    const showroomIcon = L.divIcon({
-        className: 'custom-marker',
-        html: '<div style="background: #0a0a0a; color: white; padding: 8px 12px; border-radius: 8px; font-weight: 600; font-size: 14px; box-shadow: 0 2px 10px rgba(0,0,0,0.3); white-space: nowrap;">📍 Notre Showroom</div>',
-        iconSize: [120, 40],
-        iconAnchor: [60, 40]
-    });
-
-    // Add marker for showroom
-    L.marker([showroomLat, showroomLng], { icon: showroomIcon })
-        .addTo(map)
-        .bindPopup('<div style="text-align: center;"><strong>JLB Cuisine & Agencement</strong><br>Rillieux-la-Pape<br>Lun - Ven : 8h - 19h</div>');
-
-    // Define coverage area (circle radius ~15km)
-    const coverageCircle = L.circle([showroomLat, showroomLng], {
+    // Define coverage area first (so it appears below markers)
+    L.circle([showroomLat, showroomLng], {
         color: '#c9a961',
         fillColor: '#c9a961',
-        fillOpacity: 0.15,
-        radius: 15000, // 15km radius
+        fillOpacity: 0.12,
+        radius: 15000,
         weight: 2,
+        opacity: 0.6,
         dashArray: '5, 10'
     }).addTo(map);
 
-    // Add markers for main cities
+    // Enhanced custom icon for showroom with animation
+    const showroomIcon = L.divIcon({
+        className: 'custom-showroom-marker',
+        html: '<div class="showroom-pin"><div class="pin-icon">🏢</div><div class="pin-label">Notre Showroom<br><small>Rillieux-la-Pape</small></div></div>',
+        iconSize: [140, 80],
+        iconAnchor: [70, 70]
+    });
+
+    // Add marker for showroom with detailed popup
+    L.marker([showroomLat, showroomLng], { icon: showroomIcon })
+        .addTo(map)
+        .bindPopup('<div style="text-align: center; padding: 8px;"><strong style="font-size: 16px;">JLB Cuisine & Agencement</strong><br><br>📍 Rillieux-la-Pape<br>🕐 Lun - Ven : 8h - 19h<br><br><a href="tel:0637878141" style="color: #c9a961; font-weight: 600;">📞 06 37 87 81 41</a></div>')
+        .openPopup();
+
+    // Add markers for main cities with subtle style
     const cities = [
         { name: 'Lyon', lat: 45.7640, lng: 4.8357 },
         { name: 'Villeurbanne', lat: 45.7667, lng: 4.8800 },
@@ -521,16 +579,15 @@ function initializeMap() {
         { name: 'Vénissieux', lat: 45.6972, lng: 4.8872 }
     ];
 
-    const cityIcon = L.divIcon({
-        className: 'city-marker',
-        html: '<div style="background: white; width: 8px; height: 8px; border-radius: 50%; border: 2px solid #0a0a0a; box-shadow: 0 2px 4px rgba(0,0,0,0.2);"></div>',
-        iconSize: [12, 12],
-        iconAnchor: [6, 6]
-    });
-
     cities.forEach(city => {
-        L.marker([city.lat, city.lng], { icon: cityIcon })
-            .addTo(map)
-            .bindPopup('<strong>' + city.name + '</strong><br>Zone d\'intervention');
+        L.circleMarker([city.lat, city.lng], {
+            radius: 6,
+            fillColor: '#0a0a0a',
+            color: '#ffffff',
+            weight: 2,
+            opacity: 1,
+            fillOpacity: 0.8
+        }).addTo(map)
+          .bindPopup('<strong>' + city.name + '</strong><br><small>Zone d\'intervention</small>');
     });
 }
