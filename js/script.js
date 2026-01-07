@@ -17,6 +17,7 @@ let bookingData = {
 // Initialization
 document.addEventListener('DOMContentLoaded', function() {
     initializeSmoothScroll();
+    initializeBookingModal();
     initializeBookingForm();
     initializeBeforeAfterSlider();
     initializeScrollAnimations();
@@ -26,8 +27,13 @@ document.addEventListener('DOMContentLoaded', function() {
 function initializeSmoothScroll() {
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
+            const href = this.getAttribute('href');
+            // Skip if it's the modal trigger
+            if (this.classList.contains('open-modal-btn')) {
+                return;
+            }
             e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
+            const target = document.querySelector(href);
             if (target) {
                 target.scrollIntoView({
                     behavior: 'smooth',
@@ -35,6 +41,39 @@ function initializeSmoothScroll() {
                 });
             }
         });
+    });
+}
+
+// Booking Modal
+function initializeBookingModal() {
+    const modal = document.getElementById('bookingModal');
+    const modalOverlay = document.getElementById('modalOverlay');
+    const modalClose = document.getElementById('modalClose');
+    const openModalBtns = document.querySelectorAll('.open-modal-btn');
+
+    // Open modal
+    openModalBtns.forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden'; // Prevent background scroll
+        });
+    });
+
+    // Close modal
+    function closeModal() {
+        modal.classList.remove('active');
+        document.body.style.overflow = ''; // Re-enable scroll
+    }
+
+    modalClose.addEventListener('click', closeModal);
+    modalOverlay.addEventListener('click', closeModal);
+
+    // Close on ESC key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && modal.classList.contains('active')) {
+            closeModal();
+        }
     });
 }
 
@@ -94,7 +133,7 @@ function initializeScrollAnimations() {
         });
     }, { threshold: 0.1 });
 
-    document.querySelectorAll('.why-item, .showroom-card').forEach(el => {
+    document.querySelectorAll('.feature-card, .showroom-card').forEach(el => {
         el.style.opacity = '0';
         el.style.transform = 'translateY(30px)';
         el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
@@ -355,11 +394,10 @@ function generateTimeSlots() {
     const timeSlotsEl = document.getElementById('timeSlots');
     timeSlotsEl.innerHTML = '';
 
-    // FIXED: Hours 8h-19h
+    // FIXED: Hours 8h-19h every hour
     const timeSlots = [
-        '08:00', '08:30', '09:00', '09:30', '10:00', '10:30', '11:00', '11:30',
-        '12:00', '12:30', '13:00', '13:30', '14:00', '14:30', '15:00', '15:30',
-        '16:00', '16:30', '17:00', '17:30', '18:00', '18:30', '19:00'
+        '08:00', '09:00', '10:00', '11:00', '12:00', '13:00',
+        '14:00', '15:00', '16:00', '17:00', '18:00', '19:00'
     ];
 
     timeSlots.forEach(time => {

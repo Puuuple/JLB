@@ -24,9 +24,12 @@
                     <a href="#accueil">Accueil</a>
                     <a href="#avant-apres">Avant/Après</a>
                     <a href="#services">Services</a>
-                    <a href="tel:0637878141" class="nav-phone">📞 06 37 87 81 41</a>
+                    <a href="tel:0637878141" class="nav-phone">
+                        <span class="phone-icon">📞</span>
+                        <span class="phone-number">06 37 87 81 41</span>
+                    </a>
                 </nav>
-                <a href="#rdv" class="btn-header">Prendre RDV</a>
+                <a href="#" class="btn-header open-modal-btn">Prendre RDV</a>
             </div>
         </div>
     </header>
@@ -43,7 +46,7 @@
                 <h1>Votre cuisine de rêve,<br><span class="highlight">sur-mesure</span></h1>
                 <p class="hero-description">Conception 3D • Visualisation VR • Installation clé en main</p>
                 <div class="hero-cta">
-                    <a href="#rdv" class="btn btn-primary btn-large">Réserver ma consultation gratuite</a>
+                    <a href="#" class="btn btn-primary btn-large open-modal-btn">Réserver ma consultation gratuite</a>
                     <a href="tel:0637878141" class="btn btn-primary btn-large">06 37 87 81 41</a>
                 </div>
             </div>
@@ -57,13 +60,12 @@
     </section>
 
     <!-- Booking Section (Moved up) -->
-    <section class="booking-highlight" id="rdv">
-        <div class="container-small">
-            <div class="booking-intro">
-                <h2>Réservez votre consultation gratuite</h2>
-                <p>Un expert JLB vous conseille sur votre projet</p>
-            </div>
-            <div class="booking-container">
+    <!-- Booking Modal -->
+    <div id="bookingModal" class="modal">
+        <div class="modal-overlay" id="modalOverlay"></div>
+        <div class="modal-content">
+            <button class="modal-close" id="modalClose">×</button>
+            <div class="modal-body">
                 <form id="bookingForm" class="booking-form">
                     <!-- Step 1: Type -->
                     <div class="form-step active" data-step="1">
@@ -154,7 +156,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </div>
 
     <!-- Before/After Section -->
     <section class="before-after" id="avant-apres">
@@ -173,8 +175,8 @@
                             <div class="ba-handle-line"></div>
                             <div class="ba-handle-button">
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                    <path d="M15 6L9 12L15 18" stroke="currentColor" stroke-width="2"/>
-                                    <path d="M9 6L15 12L9 18" stroke="currentColor" stroke-width="2"/>
+                                    <path d="M11 6L5 12L11 18" stroke="currentColor" stroke-width="2"/>
+                                    <path d="M13 6L19 12L13 18" stroke="currentColor" stroke-width="2"/>
                                 </svg>
                             </div>
                         </div>
@@ -192,27 +194,31 @@
         </div>
     </section>
 
-    <!-- Why Choose Us -->
-    <section class="why-choose" id="services">
+    <!-- Features Section -->
+    <section class="features-section" id="services">
         <div class="container">
-            <div class="section-header-center">
-                <h2>Pourquoi choisir JLB ?</h2>
-            </div>
-            <div class="why-grid">
-                <div class="why-item">
-                    <div class="why-icon">👁️</div>
-                    <h3>Visualisation VR</h3>
-                    <p>Voyez votre cuisine en réalité virtuelle avant sa fabrication</p>
+            <div class="features-grid">
+                <div class="feature-card feature-large">
+                    <div class="feature-number">20</div>
+                    <div class="feature-text">
+                        <h3>Ans d'expertise</h3>
+                        <p>Des centaines de cuisines et salles de bain réalisées dans toute la région lyonnaise</p>
+                    </div>
                 </div>
-                <div class="why-item">
-                    <div class="why-icon">⚡</div>
-                    <h3>Tout inclus</h3>
-                    <p>De la conception 3D à l'installation clé en main</p>
+                <div class="feature-card">
+                    <div class="feature-badge">VR</div>
+                    <h3>Visualisation 3D</h3>
+                    <p>Explorez votre future cuisine en réalité virtuelle avant même le début des travaux</p>
                 </div>
-                <div class="why-item">
-                    <div class="why-icon">💎</div>
-                    <h3>20 ans d'expertise</h3>
-                    <p>Cuisines, salles de bain et agencement sur-mesure</p>
+                <div class="feature-card">
+                    <div class="feature-badge">100%</div>
+                    <h3>Clé en main</h3>
+                    <p>De la conception au dernier coup de pinceau, on s'occupe de tout</p>
+                </div>
+                <div class="feature-card feature-dark">
+                    <h3>Devis gratuit sous 48h</h3>
+                    <p>Rencontrons-nous et créons ensemble votre projet sur-mesure</p>
+                    <a href="#" class="feature-link open-modal-btn">Prendre rendez-vous →</a>
                 </div>
             </div>
         </div>
@@ -225,7 +231,7 @@
                 <h2>Prêt à transformer votre intérieur ?</h2>
                 <p>RDV gratuit • Devis transparent • Installation clé en main</p>
                 <div class="cta-actions">
-                    <a href="#rdv" class="btn btn-primary btn-large">Réserver ma consultation</a>
+                    <a href="#" class="btn btn-primary btn-large open-modal-btn">Réserver ma consultation</a>
                     <a href="tel:0637878141" class="btn btn-outline btn-large">06 37 87 81 41</a>
                 </div>
             </div>
@@ -259,7 +265,7 @@
                         <h3>Notre showroom</h3>
                         <p class="showroom-location">Rillieux-la-Pape</p>
                         <p class="showroom-hours">Lun - Ven : 8h - 19h</p>
-                        <a href="#rdv" class="btn btn-primary">Prendre rendez-vous</a>
+                        <a href="#" class="btn btn-primary open-modal-btn">Prendre rendez-vous</a>
                     </div>
                 </div>
             </div>
