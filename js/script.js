@@ -18,6 +18,7 @@ let bookingData = {
 document.addEventListener('DOMContentLoaded', function() {
     initializeSmoothScroll();
     initializeBookingModal();
+    initializeCallbackModal();
     initializeBookingForm();
     initializeBeforeAfterSlider();
     initializeScrollAnimations();
@@ -74,6 +75,69 @@ function initializeBookingModal() {
         if (e.key === 'Escape' && modal.classList.contains('active')) {
             closeModal();
         }
+    });
+}
+
+// Callback Modal
+function initializeCallbackModal() {
+    const modal = document.getElementById('callbackModal');
+    const modalOverlay = document.getElementById('callbackOverlay');
+    const modalClose = document.getElementById('callbackClose');
+    const openCallbackBtns = document.querySelectorAll('.open-callback-btn');
+    const callbackForm = document.getElementById('callbackForm');
+    const callbackSuccess = document.getElementById('callbackSuccess');
+
+    // Open modal
+    openCallbackBtns.forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+    });
+
+    // Close modal
+    function closeModal() {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+        // Reset form after close
+        setTimeout(() => {
+            callbackForm.reset();
+            callbackForm.style.display = 'flex';
+            callbackSuccess.style.display = 'none';
+        }, 300);
+    }
+
+    modalClose.addEventListener('click', closeModal);
+    modalOverlay.addEventListener('click', closeModal);
+
+    // Close on ESC key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && modal.classList.contains('active')) {
+            closeModal();
+        }
+    });
+
+    // Form submission
+    callbackForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const nom = document.getElementById('callbackNom').value;
+        const tel = document.getElementById('callbackTel').value;
+        const horaire = document.getElementById('callbackHoraire').value;
+        const message = document.getElementById('callbackMessage').value;
+
+        // Simulate submission
+        console.log('Callback request:', { nom, tel, horaire, message });
+
+        // Show success
+        callbackForm.style.display = 'none';
+        callbackSuccess.style.display = 'block';
+
+        // Auto-close after 3 seconds
+        setTimeout(() => {
+            closeModal();
+        }, 3000);
     });
 }
 
