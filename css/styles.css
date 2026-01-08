@@ -446,16 +446,17 @@ img { max-width: 100%; height: auto; display: block; }
 }
 
 .ba-slide.preview {
-    opacity: 0.6;
     pointer-events: none;
 }
 
 .ba-slide.preview-left {
+    opacity: 0.6;
     transform: translateX(-500px) scale(0.75);
     z-index: 5;
 }
 
 .ba-slide.preview-right {
+    opacity: 0.6;
     transform: translateX(500px) scale(0.75);
     z-index: 5;
 }
