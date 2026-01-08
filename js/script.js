@@ -23,6 +23,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeBeforeAfterSlider();
     initializeScrollAnimations();
     initializeMap();
+    initializeReviewsCarousel();
 });
 
 // Smooth Scroll
@@ -734,4 +735,82 @@ function initializeMap() {
         }).addTo(map)
           .bindPopup('<strong>' + city.name + '</strong><br><small>Zone d\'intervention</small>');
     });
+}
+
+// Reviews Carousel
+function initializeReviewsCarousel() {
+    const slides = document.querySelectorAll('.review-slide');
+    const prevBtn = document.getElementById('reviewPrevBtn');
+    const nextBtn = document.getElementById('reviewNextBtn');
+    const indicatorsContainer = document.getElementById('reviewIndicators');
+
+    if (slides.length === 0) return;
+
+    let currentReviewIndex = 0;
+
+    // Create indicators
+    function createIndicators() {
+        indicatorsContainer.innerHTML = '';
+        slides.forEach((_, index) => {
+            const indicator = document.createElement('div');
+            indicator.classList.add('review-indicator');
+            if (index === 0) indicator.classList.add('active');
+            indicator.addEventListener('click', () => {
+                showReview(index);
+            });
+            indicatorsContainer.appendChild(indicator);
+        });
+    }
+
+    // Show review
+    function showReview(index) {
+        slides.forEach(slide => slide.classList.remove('active'));
+        slides[index].classList.add('active');
+
+        const indicators = document.querySelectorAll('.review-indicator');
+        indicators.forEach(ind => ind.classList.remove('active'));
+        if (indicators[index]) indicators[index].classList.add('active');
+
+        currentReviewIndex = index;
+    }
+
+    // Navigation buttons
+    if (prevBtn) {
+        prevBtn.addEventListener('click', () => {
+            currentReviewIndex = (currentReviewIndex - 1 + slides.length) % slides.length;
+            showReview(currentReviewIndex);
+        });
+    }
+
+    if (nextBtn) {
+        nextBtn.addEventListener('click', () => {
+            currentReviewIndex = (currentReviewIndex + 1) % slides.length;
+            showReview(currentReviewIndex);
+        });
+    }
+
+    // Auto-play (optional)
+    let autoPlayInterval = setInterval(() => {
+        currentReviewIndex = (currentReviewIndex + 1) % slides.length;
+        showReview(currentReviewIndex);
+    }, 5000);
+
+    // Pause auto-play on hover
+    const carousel = document.querySelector('.reviews-carousel');
+    if (carousel) {
+        carousel.addEventListener('mouseenter', () => {
+            clearInterval(autoPlayInterval);
+        });
+
+        carousel.addEventListener('mouseleave', () => {
+            autoPlayInterval = setInterval(() => {
+                currentReviewIndex = (currentReviewIndex + 1) % slides.length;
+                showReview(currentReviewIndex);
+            }, 5000);
+        });
+    }
+
+    // Initialize
+    createIndicators();
+    showReview(0);
 }

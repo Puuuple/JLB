@@ -1495,29 +1495,95 @@ section {
     padding: 80px 0;
 }
 
-.reviews-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 32px;
+.reviews-carousel {
+    position: relative;
     margin-top: 48px;
     margin-bottom: 48px;
 }
 
+.reviews-container {
+    position: relative;
+    overflow: hidden;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.review-slide {
+    display: none;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.review-slide.active {
+    display: block;
+    opacity: 1;
+}
+
+.review-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: var(--white);
+    border: 2px solid var(--gray-200);
+    color: var(--gray-700);
+    cursor: pointer;
+    transition: all 0.3s;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.review-nav:hover {
+    background: var(--primary);
+    color: var(--white);
+    border-color: var(--primary);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+}
+
+.review-nav-prev {
+    left: -28px;
+}
+
+.review-nav-next {
+    right: -28px;
+}
+
+.review-indicators {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    margin-top: 32px;
+}
+
+.review-indicator {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--gray-300);
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.review-indicator.active {
+    background: var(--primary);
+    width: 32px;
+    border-radius: 6px;
+}
+
 .review-card {
     background: var(--gray-50);
-    padding: 32px;
+    padding: 48px 40px;
     border-radius: 16px;
     display: flex;
     flex-direction: column;
-    gap: 20px;
-    transition: all 0.3s;
-    border: 2px solid transparent;
-}
-
-.review-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
-    border-color: var(--primary);
+    gap: 24px;
+    border: 2px solid var(--gray-100);
+    min-height: 280px;
 }
 
 .review-stars {
@@ -1690,7 +1756,11 @@ section {
     .tour-placeholder { padding: 40px 24px; }
     .tour-placeholder h3 { font-size: 24px; }
     .tour-features { gap: 20px; }
-    .reviews-grid { grid-template-columns: 1fr; gap: 24px; }
+    .reviews-container { max-width: 100%; padding: 0 12px; }
+    .review-nav { width: 44px; height: 44px; }
+    .review-nav-prev { left: -8px; }
+    .review-nav-next { right: -8px; }
+    .review-card { padding: 32px 24px; min-height: 320px; }
     .reviews-cta { flex-direction: column; text-align: center; }
     .google-rating { flex-direction: column; gap: 16px; }
     .btn-outline-dark { width: 100%; }
