@@ -1451,12 +1451,30 @@ section {
 .tour-iframe-container {
     position: relative;
     width: 100%;
-    max-width: 1000px;
-    margin: 0 auto 32px;
+    max-width: 1200px;
+    margin: 0 auto 24px;
     border-radius: 16px;
     overflow: hidden;
-    background: var(--white);
-    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    background: var(--gray-900);
+    box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+    aspect-ratio: 16 / 9;
+}
+
+.tour-iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+.tour-caption {
+    text-align: center;
+    font-size: 14px;
+    color: var(--gray-600);
+    margin-bottom: 32px;
+    font-style: italic;
 }
 
 .tour-placeholder-iframe {
@@ -1696,13 +1714,22 @@ section {
 
 .reviews-cta {
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: space-between;
     gap: 32px;
-    padding: 32px;
+    padding: 40px 32px;
     background: var(--gray-50);
     border-radius: 16px;
-    flex-wrap: wrap;
+}
+
+.google-reviews-widget {
+    width: 100%;
+    max-width: 800px;
+    margin: 24px 0;
+    padding: 20px;
+    background: var(--white);
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
 }
 
 .google-rating {
@@ -1808,9 +1835,11 @@ section {
     .review-nav-prev { left: -8px; }
     .review-nav-next { right: -8px; }
     .review-card { padding: 32px 24px; min-height: 320px; }
-    .reviews-cta { flex-direction: column; text-align: center; }
+    .reviews-cta { flex-direction: column; text-align: center; padding: 32px 20px; }
     .google-rating { flex-direction: column; gap: 16px; }
+    .google-reviews-widget { padding: 16px; }
     .btn-outline-dark { width: 100%; }
+    .tour-iframe-container { border-radius: 12px; }
     .cities-grid {
         display: grid;
         grid-template-columns: repeat(2, 1fr);

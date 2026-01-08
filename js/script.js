@@ -24,6 +24,8 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeScrollAnimations();
     initializeMap();
     initializeReviewsCarousel();
+    initializeAnimationsOnScroll();
+    initializeParallax();
 });
 
 // Smooth Scroll
@@ -813,4 +815,80 @@ function initializeReviewsCarousel() {
     // Initialize
     createIndicators();
     showReview(0);
+}
+
+// Animations On Scroll
+function initializeAnimationsOnScroll() {
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+            }
+        });
+    }, observerOptions);
+
+    // Elements to animate
+    const animateElements = [
+        '.section-header-center',
+        '.service-item',
+        '.ba-slide',
+        '.review-card',
+        '.tour-iframe-container',
+        '.intervention-zone',
+        '.cities-grid',
+        '.cta-content'
+    ];
+
+    animateElements.forEach(selector => {
+        const elements = document.querySelectorAll(selector);
+        elements.forEach((el, index) => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+            el.style.transitionDelay = `${index * 0.1}s`;
+            observer.observe(el);
+        });
+    });
+}
+
+// Parallax Effect
+function initializeParallax() {
+    const heroImage = document.querySelector('.hero-image');
+    if (!heroImage) return;
+
+    let ticking = false;
+
+    window.addEventListener('scroll', () => {
+        if (!ticking) {
+            window.requestAnimationFrame(() => {
+                const scrolled = window.pageYOffset;
+                const parallaxSpeed = 0.5;
+
+                if (scrolled < window.innerHeight) {
+                    heroImage.style.transform = `translateY(${scrolled * parallaxSpeed}px)`;
+                }
+
+                ticking = false;
+            });
+            ticking = true;
+        }
+    });
+
+    // Header background on scroll
+    const header = document.querySelector('.header');
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+            header.style.background = 'rgba(255, 255, 255, 0.98)';
+            header.style.boxShadow = '0 2px 20px rgba(0,0,0,0.08)';
+        } else {
+            header.style.background = 'var(--white)';
+            header.style.boxShadow = '0 1px 3px rgba(0,0,0,0.05)';
+        }
+    });
 }

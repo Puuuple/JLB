@@ -1,0 +1,411 @@
+/* ========================================
+   ANIMATIONS CSS - JLB Cuisine & Agencement
+   ======================================== */
+
+/* Fade In On Scroll */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: -1000px 0;
+    }
+    100% {
+        background-position: 1000px 0;
+    }
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+/* Apply animations to elements */
+.animate-on-scroll {
+    opacity: 0;
+    animation: fadeInUp 0.8s ease forwards;
+}
+
+.animate-on-scroll.delay-1 {
+    animation-delay: 0.1s;
+}
+
+.animate-on-scroll.delay-2 {
+    animation-delay: 0.2s;
+}
+
+.animate-on-scroll.delay-3 {
+    animation-delay: 0.3s;
+}
+
+.animate-on-scroll.delay-4 {
+    animation-delay: 0.4s;
+}
+
+.animate-on-scroll.delay-5 {
+    animation-delay: 0.5s;
+}
+
+.animate-on-scroll.delay-6 {
+    animation-delay: 0.6s;
+}
+
+/* Hero animations */
+.hero h1 {
+    animation: fadeInUp 1s ease 0.2s backwards;
+}
+
+.hero-description {
+    animation: fadeInUp 1s ease 0.4s backwards;
+}
+
+.hero-tag {
+    animation: fadeIn 1s ease 0.1s backwards;
+}
+
+.hero-cta {
+    animation: fadeInUp 1s ease 0.6s backwards;
+}
+
+.scroll-indicator {
+    animation: float 3s ease-in-out infinite;
+}
+
+/* Button hover effects */
+.btn {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+.btn:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.btn:active {
+    transform: translateY(0);
+}
+
+/* Service cards hover */
+.service-item {
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.service-item:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+}
+
+.service-icon {
+    transition: all 0.3s ease;
+}
+
+.service-item:hover .service-icon {
+    transform: scale(1.2) rotate(5deg);
+}
+
+/* Before/After card animation */
+.ba-slide {
+    animation: fadeIn 0.5s ease;
+}
+
+.ba-info h3 {
+    transition: color 0.3s ease;
+}
+
+.ba-slide:hover .ba-info h3 {
+    color: var(--primary);
+}
+
+/* Cities grid animation */
+.cities-grid span {
+    animation: fadeIn 0.5s ease backwards;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.cities-grid span:nth-child(1) { animation-delay: 0.05s; }
+.cities-grid span:nth-child(2) { animation-delay: 0.1s; }
+.cities-grid span:nth-child(3) { animation-delay: 0.15s; }
+.cities-grid span:nth-child(4) { animation-delay: 0.2s; }
+.cities-grid span:nth-child(5) { animation-delay: 0.25s; }
+.cities-grid span:nth-child(6) { animation-delay: 0.3s; }
+.cities-grid span:nth-child(7) { animation-delay: 0.35s; }
+.cities-grid span:nth-child(8) { animation-delay: 0.4s; }
+
+.cities-grid span:hover {
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Review cards animation */
+.review-card {
+    animation: scaleIn 0.5s ease;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.review-card:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+}
+
+/* Navigation arrows pulse */
+.ba-nav,
+.review-nav {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.ba-nav:hover,
+.review-nav:hover {
+    transform: translateY(-50%) scale(1.1);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* Section headers animation */
+.section-header-center h2 {
+    position: relative;
+    display: inline-block;
+}
+
+.section-header-center h2::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
+    transition: width 0.6s ease;
+}
+
+.section-header-center:hover h2::after {
+    width: 100%;
+}
+
+/* Tour iframe animation */
+.tour-iframe-container {
+    animation: fadeIn 0.8s ease;
+    transition: all 0.3s ease;
+}
+
+.tour-iframe-container:hover {
+    transform: scale(1.01);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+}
+
+/* CTA Section pulse effect */
+.cta-section {
+    position: relative;
+    overflow: hidden;
+}
+
+.cta-section::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+        45deg,
+        transparent 30%,
+        rgba(255, 255, 255, 0.03) 50%,
+        transparent 70%
+    );
+    animation: shimmer 3s infinite;
+}
+
+/* Filter buttons animation */
+.filter-btn {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+}
+
+.filter-btn::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 2px;
+    background: var(--primary);
+    transition: width 0.3s ease;
+}
+
+.filter-btn.active::after,
+.filter-btn:hover::after {
+    width: 80%;
+}
+
+.filter-btn:hover {
+    transform: translateY(-2px);
+}
+
+/* Map marker animation */
+.leaflet-marker-icon {
+    animation: pulse 2s ease-in-out infinite;
+}
+
+/* Review indicators */
+.review-indicator {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.review-indicator:hover {
+    transform: scale(1.2);
+}
+
+.review-indicator.active {
+    animation: pulse 1s ease infinite;
+}
+
+/* Footer animation */
+.footer-link {
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.footer-link::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: currentColor;
+    transition: width 0.3s ease;
+}
+
+.footer-link:hover::after {
+    width: 100%;
+}
+
+/* Loading animation for images */
+img {
+    transition: opacity 0.3s ease;
+}
+
+img:not([src]) {
+    opacity: 0;
+}
+
+/* Smooth scrolling */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Add subtle parallax to hero */
+@media (min-width: 769px) {
+    .hero-image {
+        transition: transform 0.1s ease-out;
+    }
+}
+
+/* Responsive animations - disable on mobile for performance */
+@media (max-width: 768px) {
+    * {
+        animation-duration: 0.5s !important;
+    }
+
+    .btn:hover {
+        transform: none;
+    }
+
+    .service-item:hover {
+        transform: translateY(-4px);
+    }
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}

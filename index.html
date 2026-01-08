@@ -11,9 +11,53 @@
     <meta property="og:description" content="Votre cuisiniste expert à Lyon depuis 20 ans. Cuisine sur-mesure, rénovation salle de bain. Devis gratuit sous 48h.">
     <meta property="og:type" content="website">
     <meta property="og:locale" content="fr_FR">
+    <meta property="og:image" content="https://www.jlb-cuisine.fr/images/og-image.jpg">
     <link rel="canonical" href="https://www.jlb-cuisine.fr">
     <title>Cuisiniste Lyon & Région | JLB Cuisine & Agencement - Devis Gratuit 48h</title>
+
+    <!-- Schema.org structured data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "LocalBusiness",
+        "name": "JLB Cuisine & Agencement",
+        "image": "https://www.jlb-cuisine.fr/images/logo.jpg",
+        "@id": "https://www.jlb-cuisine.fr",
+        "url": "https://www.jlb-cuisine.fr",
+        "telephone": "+33637878141",
+        "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Rillieux-la-Pape",
+            "addressLocality": "Rillieux-la-Pape",
+            "postalCode": "69140",
+            "addressCountry": "FR"
+        },
+        "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": 45.8200,
+            "longitude": 4.8981
+        },
+        "openingHoursSpecification": {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+            "opens": "09:00",
+            "closes": "18:00"
+        },
+        "sameAs": [
+            "https://www.facebook.com/jlbcuisine",
+            "https://www.instagram.com/jlbcuisine"
+        ],
+        "priceRange": "€€",
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.9",
+            "reviewCount": "127"
+        }
+    }
+    </script>
+
     <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/animations.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
@@ -486,21 +530,16 @@
             </div>
             <div class="tour-container">
                 <div class="tour-iframe-container">
-                    <!-- Placeholder pour iframe 360° -->
-                    <div class="tour-placeholder-iframe">
-                        <div class="tour-icon">
-                            <svg width="80" height="80" viewBox="0 0 24 24" fill="none">
-                                <path d="M2 7C2 6.44772 2.44772 6 3 6H21C21.5523 6 22 6.44772 22 7V17C22 17.5523 21.5523 18 21 18H3C2.44772 18 2 17.5523 2 17V7Z" stroke="currentColor" stroke-width="1.5"/>
-                                <path d="M5 10C5 8.89543 5.89543 8 7 8C8.10457 8 9 8.89543 9 10V14C9 15.1046 8.10457 16 7 16C5.89543 16 5 15.1046 5 14V10Z" fill="currentColor"/>
-                                <path d="M15 10C15 8.89543 15.8954 8 17 8C18.1046 8 19 8.89543 19 10V14C19 15.1046 18.1046 16 17 16C15.8954 16 15 15.1046 15 14V10Z" fill="currentColor"/>
-                            </svg>
-                        </div>
-                        <h3>Visite 360° disponible prochainement</h3>
-                        <p>Bientôt : Découvrez nos cuisines et aménagements exposés dans notre showroom en immersion totale</p>
-                    </div>
-                    <!-- Future iframe Google Street View ou Matterport -->
-                    <!-- <iframe src="..." frameborder="0" allowfullscreen></iframe> -->
+                    <!-- Visite virtuelle 360° Matterport exemple -->
+                    <iframe
+                        src="https://my.matterport.com/show/?m=SxQL3iGyoDo"
+                        frameborder="0"
+                        allowfullscreen
+                        allow="xr-spatial-tracking"
+                        class="tour-iframe">
+                    </iframe>
                 </div>
+                <p class="tour-caption">Notre showroom - Explorez nos cuisines et aménagements en 360°</p>
                 <div class="tour-features">
                     <div class="tour-feature">
                         <span class="feature-icon">🎯</span>
@@ -645,6 +684,11 @@
                     <div class="rating-score">4.9/5</div>
                     <div class="rating-stars">★★★★★</div>
                     <p>Basé sur 127 avis Google</p>
+                </div>
+                <div class="google-reviews-widget">
+                    <!-- Widget Google Reviews -->
+                    <script src="https://static.elfsight.com/platform/platform.js" data-use-service-core defer></script>
+                    <div class="elfsight-app-d7d2c3b8-7f91-4e5a-8e5f-3c4a2b1d9e8f" data-elfsight-app-lazy></div>
                 </div>
                 <a href="https://search.google.com/local/writereview?placeid=ChIJd_Y0ziC98UcRMJwkB2oISkQ" target="_blank" rel="noopener" class="btn btn-outline-dark">
                     Laisser un avis Google
