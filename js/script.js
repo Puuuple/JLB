@@ -217,11 +217,24 @@ function filterSlides() {
 function showSlide(index) {
     const allSlides = document.querySelectorAll('.ba-slide');
     allSlides.forEach(slide => {
-        slide.classList.remove('active');
+        slide.classList.remove('active', 'preview', 'preview-left', 'preview-right');
     });
 
+    // Slide actif
     if (filteredSlides[index]) {
         filteredSlides[index].classList.add('active');
+    }
+
+    // Preview gauche
+    const prevIndex = (index - 1 + filteredSlides.length) % filteredSlides.length;
+    if (filteredSlides[prevIndex]) {
+        filteredSlides[prevIndex].classList.add('preview', 'preview-left');
+    }
+
+    // Preview droite
+    const nextIndex = (index + 1) % filteredSlides.length;
+    if (filteredSlides[nextIndex]) {
+        filteredSlides[nextIndex].classList.add('preview', 'preview-right');
     }
 
     updateIndicators();
