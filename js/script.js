@@ -197,9 +197,28 @@ function initializeBeforeAfterSlider() {
         }
     });
 
-    // Initialiser les indicateurs
+    // Désactiver les transitions pour le chargement initial
+    const slidesContainer = document.querySelector('.ba-slides-container');
+    if (slidesContainer) {
+        slidesContainer.style.transition = 'none';
+        slides.forEach(slide => {
+            slide.style.transition = 'none';
+        });
+    }
+
+    // Initialiser les indicateurs et afficher la première slide
     updateIndicators();
     showSlide(0);
+
+    // Réactiver les transitions après un court délai
+    setTimeout(() => {
+        if (slidesContainer) {
+            slidesContainer.style.transition = '';
+            slides.forEach(slide => {
+                slide.style.transition = '';
+            });
+        }
+    }, 50);
 }
 
 function filterSlides() {
