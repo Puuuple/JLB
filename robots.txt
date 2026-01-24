@@ -2,7 +2,7 @@ User-agent: *
 Allow: /
 
 # Sitemap
-Sitemap: https://votre-domaine.com/sitemap.xml
+Sitemap: https://aquamarine-emu-193090.hostingersite.com/sitemap.xml
 
 # Interdire l'indexation des fichiers système
 Disallow: /css/
