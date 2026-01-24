@@ -452,17 +452,17 @@ img { max-width: 100%; height: auto; display: block; }
 }
 
 .ba-slide.preview-left {
-    opacity: 0.6;
-    transform: translateX(-500px) scale(0.75);
+    opacity: 0.6 !important;
+    transform: translateX(-500px) scale(0.75) !important;
     z-index: 5;
-    visibility: visible;
+    visibility: visible !important;
 }
 
 .ba-slide.preview-right {
-    opacity: 0.6;
-    transform: translateX(500px) scale(0.75);
+    opacity: 0.6 !important;
+    transform: translateX(500px) scale(0.75) !important;
     z-index: 5;
-    visibility: visible;
+    visibility: visible !important;
 }
 
 @keyframes slideIn {

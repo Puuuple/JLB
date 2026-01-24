@@ -234,27 +234,32 @@ function filterSlides() {
 }
 
 function showSlide(index) {
-    const allSlides = document.querySelectorAll('.ba-slide');
-    allSlides.forEach(slide => {
+    // Calculer les indices
+    const prevIndex = (index - 1 + filteredSlides.length) % filteredSlides.length;
+    const nextIndex = (index + 1) % filteredSlides.length;
+
+    // Parcourir toutes les slides filtrées
+    filteredSlides.forEach((slide, i) => {
+        // Enlever toutes les classes
         slide.classList.remove('active', 'preview', 'preview-left', 'preview-right');
+
+        // Appliquer la bonne classe selon la position
+        if (i === index) {
+            slide.classList.add('active');
+        } else if (i === prevIndex) {
+            slide.classList.add('preview', 'preview-left');
+        } else if (i === nextIndex) {
+            slide.classList.add('preview', 'preview-right');
+        }
     });
 
-    // Slide actif
-    if (filteredSlides[index]) {
-        filteredSlides[index].classList.add('active');
-    }
-
-    // Preview gauche
-    const prevIndex = (index - 1 + filteredSlides.length) % filteredSlides.length;
-    if (filteredSlides[prevIndex]) {
-        filteredSlides[prevIndex].classList.add('preview', 'preview-left');
-    }
-
-    // Preview droite
-    const nextIndex = (index + 1) % filteredSlides.length;
-    if (filteredSlides[nextIndex]) {
-        filteredSlides[nextIndex].classList.add('preview', 'preview-right');
-    }
+    // Cacher les slides non filtrées
+    const allSlides = document.querySelectorAll('.ba-slide');
+    allSlides.forEach(slide => {
+        if (!filteredSlides.includes(slide)) {
+            slide.classList.remove('active', 'preview', 'preview-left', 'preview-right');
+        }
+    });
 
     updateIndicators();
 }
