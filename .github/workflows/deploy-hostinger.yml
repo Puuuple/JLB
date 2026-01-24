@@ -1,0 +1,29 @@
+name: Déploiement automatique Hostinger
+
+on:
+  push:
+    branches:
+      - claude/production-oteQt
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    name: Déployer sur Hostinger via FTP
+
+    steps:
+      - name: Récupérer le code
+        uses: actions/checkout@v3
+
+      - name: Synchroniser avec Hostinger
+        uses: SamKirkland/FTP-Deploy-Action@4.3.3
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          server-dir: /public_html/
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/node_modules/**
+            **/DEPLOIEMENT-*.md
+            **/README.md
