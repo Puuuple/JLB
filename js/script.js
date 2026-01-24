@@ -234,32 +234,16 @@ function filterSlides() {
 }
 
 function showSlide(index) {
-    // Calculer les indices
-    const prevIndex = (index - 1 + filteredSlides.length) % filteredSlides.length;
-    const nextIndex = (index + 1) % filteredSlides.length;
-
-    // Parcourir toutes les slides filtrées
-    filteredSlides.forEach((slide, i) => {
-        // Enlever toutes les classes
-        slide.classList.remove('active', 'preview', 'preview-left', 'preview-right');
-
-        // Appliquer la bonne classe selon la position
-        if (i === index) {
-            slide.classList.add('active');
-        } else if (i === prevIndex) {
-            slide.classList.add('preview', 'preview-left');
-        } else if (i === nextIndex) {
-            slide.classList.add('preview', 'preview-right');
-        }
-    });
-
-    // Cacher les slides non filtrées
+    // SIMPLE: cacher toutes les slides, afficher seulement celle active
     const allSlides = document.querySelectorAll('.ba-slide');
     allSlides.forEach(slide => {
-        if (!filteredSlides.includes(slide)) {
-            slide.classList.remove('active', 'preview', 'preview-left', 'preview-right');
-        }
+        slide.classList.remove('active');
     });
+
+    // Afficher la slide active
+    if (filteredSlides[index]) {
+        filteredSlides[index].classList.add('active');
+    }
 
     updateIndicators();
 }

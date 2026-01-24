@@ -411,58 +411,33 @@ img { max-width: 100%; height: auto; display: block; }
     border-color: var(--primary);
 }
 
-/* Galerie */
+/* Galerie - VERSION SIMPLE */
 .ba-gallery {
     position: relative;
-    max-width: 1400px;
+    max-width: 1200px;
     margin: 0 auto;
     padding: 80px 0;
 }
 
 .ba-slides-container {
     position: relative;
-    height: 650px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: visible;
+    width: 100%;
+    overflow: hidden;
 }
 
 .ba-slide {
-    position: absolute;
-    width: 800px;
-    opacity: 0;
-    transform: translateX(0) scale(0.75);
-    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-    pointer-events: none;
-    z-index: 1;
-    visibility: hidden;
+    display: none;
+    width: 100%;
 }
 
 .ba-slide.active {
-    opacity: 1;
-    transform: translateX(0) scale(1);
-    z-index: 10;
-    pointer-events: auto;
-    visibility: visible;
+    display: block;
+    animation: fadeIn 0.5s ease;
 }
 
-.ba-slide.preview {
-    pointer-events: none;
-}
-
-.ba-slide.preview-left {
-    opacity: 0.6 !important;
-    transform: translateX(-500px) scale(0.75) !important;
-    z-index: 5;
-    visibility: visible !important;
-}
-
-.ba-slide.preview-right {
-    opacity: 0.6 !important;
-    transform: translateX(500px) scale(0.75) !important;
-    z-index: 5;
-    visibility: visible !important;
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
 
 @keyframes slideIn {
@@ -1848,16 +1823,8 @@ section {
     .footer-content { grid-template-columns: 1fr; gap: 40px; }
     .ba-image-container { height: 400px; }
     .ba-gallery { max-width: 100%; padding: 60px 0; }
-    .ba-slides-container { height: 450px; }
-    .ba-slide { width: 90%; max-width: 600px; }
-    .ba-slide.preview-left {
-        transform: translateX(-100%) scale(0.7);
-        opacity: 0.3;
-    }
-    .ba-slide.preview-right {
-        transform: translateX(100%) scale(0.7);
-        opacity: 0.3;
-    }
+    .ba-slides-container { overflow: hidden; }
+    .ba-slide { width: 100%; }
     .calendar { grid-template-columns: repeat(5, 1fr); }
     .modal-content { width: 95%; max-height: 95vh; }
     section { padding: 60px 0; }
