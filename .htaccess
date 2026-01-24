@@ -1,6 +1,12 @@
 # JLB Cuisine & Agencement - Optimisations Serveur
 # Remplace les plugins WordPress de cache et optimisation
 
+# ===== PROTECTION PAR MOT DE PASSE =====
+AuthType Basic
+AuthName "Site en construction - Accès restreint"
+AuthUserFile /home/user/JLB/.htpasswd
+Require valid-user
+
 # ===== COMPRESSION GZIP =====
 <IfModule mod_deflate.c>
     AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/javascript application/json
