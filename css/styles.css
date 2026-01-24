@@ -552,6 +552,14 @@ img { max-width: 100%; height: auto; display: block; }
 .ba-info {
     text-align: center;
     margin-top: 32px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.ba-slide.active .ba-info {
+    opacity: 1;
+    visibility: visible;
 }
 
 .ba-category {
